@@ -1,0 +1,1951 @@
+<!--
+    ====================================================================================
+    SEO & SECURITY FILE INFORMATION
+    ====================================================================================
+
+    For a production website, you should create the following files in the root directory
+    of your domain (e.g., yoursite.com/robots.txt).
+
+    ------------------------------------------------------------------------------------
+    1. robots.txt
+    ------------------------------------------------------------------------------------
+    Purpose: This file tells search engine crawlers which pages or sections of your site
+    should not be crawled or indexed.
+
+    Public URL Path: https://www.toolsshare.com/robots.txt
+
+    Recommended Content:
+    --------------------
+    User-agent: *
+    Disallow: /admin/
+    Disallow: /profile/
+    Disallow: /cart/
+    Disallow: /checkout/
+    Disallow: /login
+    Allow: /
+
+    Sitemap: https://www.toolsshare.com/sitemap.xml
+    --------------------
+
+    ------------------------------------------------------------------------------------
+    2. security.txt
+    ------------------------------------------------------------------------------------
+    Purpose: This file provides a standardized way for security researchers to report
+    security vulnerabilities to you.
+
+    Public URL Path: https://www.toolsshare.com/.well-known/security.txt
+
+    Recommended Content:
+    --------------------
+    Contact: mailto:security@toolsshare.com
+    Expires: 2026-12-31T23:59:59.000Z
+    Preferred-Languages: en
+    Canonical: https://www.toolsshare.com/.well-known/security.txt
+    --------------------
+
+    ------------------------------------------------------------------------------------
+    3. sitemap.xml
+    ------------------------------------------------------------------------------------
+    Purpose: This file lists all the important pages on your site, helping search engines
+    find and index your content more efficiently. A link to this file has been added
+    to the footer.
+
+    Public URL Path: https://www.toolsshare.com/sitemap.xml
+
+    Recommended Content (Example):
+    --------------------
+    <?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://www.toolsshare.com/</loc>
+        <lastmod>2025-08-12</lastmod>
+        <priority>1.00</priority>
+      </url>
+      <url>
+        <loc>https://www.toolsshare.com/categories</loc>
+        <lastmod>2025-08-12</lastmod>
+        <priority>0.80</priority>
+      </url>
+      <url>
+        <loc>https://www.toolsshare.com/about-us</loc>
+        <lastmod>2025-08-12</lastmod>
+        <priority>0.80</priority>
+      </url>
+       <url>
+        <loc>https://www.toolsshare.com/terms</loc>
+        <lastmod>2025-08-12</lastmod>
+        <priority>0.50</priority>
+      </url>
+    </urlset>
+    --------------------
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ToolsShare - Peer-to-peer platform for renting tools and appliances">
+    <title>ToolsShare - Share & Rent Tools & Appliances</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffffff'%3E%3Cpath d='M21.99 8.89c0-1.21-.86-2.22-2-2.45V3c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v3.45c-1.14.23-2 1.24-2 2.45V10h-2V7H4v3H2v2h2v3H2v2h2v3h3v-3h2v1.11c0 1.21.86 2.22-2 2.45V21c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-3.45c-1.14-.23 2-1.24 2-2.45V14h2v-2h-2v-1.11zM15 3h2v2h-2V3zm-5 6H8V7h2v2zm2 0v2H8v2H6v-2h2V9h2zm4 6h-2v2h2v-2zm-2-2h-2v2h-2v-2H8v-2h2v2h2v-2h2v2z'/%3E%3C/svg%3E">
+    <link rel = "stylesheet" href = "style.css">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Location Selection Popup -->
+    <div class="overlay-common" id="locationOverlay">
+        <div class="popup-common location-popup">
+            <h2>Select Your City</h2>
+            <p class="subtitle">Choose a city to see tools available for rent near you.</p>
+            <div class="cities-grid">
+                <div class="city-option" onclick="selectCity('Delhi', event)">
+                    <span class="city-icon">🏛️</span> <span class="city-name">Delhi</span>
+                </div>
+                <div class="city-option" onclick="selectCity('Mumbai', event)">
+                    <span class="city-icon">🌇</span> <span class="city-name">Mumbai</span>
+                </div>
+                <div class="city-option" onclick="selectCity('Bangalore', event)">
+                    <span class="city-icon">💻</span> <span class="city-name">Bangalore</span>
+                </div>
+                <div class="city-option" onclick="selectCity('Chennai', event)">
+                    <span class="city-icon">🏖️</span> <span class="city-name">Chennai</span>
+                </div>
+                <div class="city-option" onclick="selectCity('Kolkata', event)">
+                    <span class="city-icon">🌉</span> <span class="city-name">Kolkata</span>
+                </div>
+                <div class="city-option" onclick="selectCity('Hyderabad', event)">
+                    <span class="city-icon">🏰</span> <span class="city-name">Hyderabad</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Popup -->
+    <div class="overlay-common" id="loginOverlay">
+        <div class="popup-common login-popup">
+            <button class="popup-close" onclick="closeLoginPopup()">×</button>
+            
+            <div class="popup-header">
+                <h2>Welcome back!</h2>
+                <p>Log in to access your account.</p>
+            </div>
+            
+            <div class="success-message" id="loginSuccessMessage"></div>
+
+            <!-- Login Form -->
+            <form class="auth-form active" id="loginForm" novalidate onsubmit="handleLoginSubmit(event)">
+                <div class="form-group">
+                    <label for="loginCredential">Email or Phone Number *</label>
+                    <input type="text" id="loginCredential" required>
+                    <div class="form-error" id="loginCredentialError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password *</label>
+                    <div class="password-group">
+                        <input type="password" id="loginPassword" required>
+                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('loginPassword')">👁️</button>
+                    </div>
+                     <div class="password-options">
+                        <span></span>
+                        <a href="#" class="forgot-password-link" onclick="showAuthView('forgotPasswordView', 'loginOverlay')">Forgot Password?</a>
+                    </div>
+                    <div class="form-error" id="loginPasswordError"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">🔐 Login</button>
+                <button type="button" class="btn btn-secondary" onclick="loginWithGoogle()">
+                    <svg width="20" height="20" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg"><path d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z" fill="#4285f4"/><path d="M272.1 544.3c73.4 0 135.3-24.1 180.4-65.7l-87.7-68c-24.4 16.6-55.9 26-92.6 26-71 0-131.2-47.9-152.8-112.3H28.9v70.1c46.2 91.9 140.3 149.9 243.2 149.9z" fill="#34a853"/><path d="M119.3 324.3c-11.4-33.8-11.4-71.4 0-105.2V149.1H28.9c-38.6 76.9-38.6 167.5 0 244.4l90.4-70.1z" fill="#fbbc04"/><path d="M272.1 107.7c38.8-.6 76.3 14 104.4 40.8l77.7-77.7C405 24.6 340.6 0 272.1 0 169.2 0 75.1 58 28.9 149.1l90.4 70.1c21.5-64.5 81.8-112.3 152.8-112.3z" fill="#ea4335"/></svg>
+                    Continue with Google
+                </button>
+                <p style="text-align:center; margin-top:20px;">
+                    Don't have an account? <a href="#" class="forgot-password-link" onclick="openSignupPopup()">Sign Up</a>
+                </p>
+            </form>
+            
+            <!-- OTP View (for Login/Forgot Password) -->
+            <div id="loginOtpView" class="auth-view">
+                <div class="popup-header">
+                    <h2>Verify Your Identity</h2>
+                    <p>Enter the 4-digit code sent to <b id="otpLoginDestination"></b></p>
+                </div>
+                <form onsubmit="handleOtpSubmit(event, 'login')">
+                    <div class="otp-group">
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                    </div>
+                    <div class="form-group error" style="text-align:center;">
+                         <div class="form-error" id="otpLoginError"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">✔️ Verify</button>
+                </form>
+                <div class="otp-timer-resend">
+                    <p>Didn't get the code? <button id="resendLoginOtpBtn" disabled>Resend</button> <span id="loginOtpTimer"></span></p>
+                </div>
+            </div>
+
+            <!-- Forgot Password View -->
+            <div id="forgotPasswordView" class="auth-view">
+                <div class="popup-header">
+                    <h2>Forgot Password</h2>
+                    <p>Enter your email or phone number to reset your password.</p>
+                </div>
+                <form onsubmit="handleForgotPasswordSubmit(event)">
+                     <div class="form-group">
+                        <label for="resetCredential">Email or Phone Number *</label>
+                        <input type="text" id="resetCredential" required>
+                        <div class="form-error" id="resetCredentialError"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">✉️ Send Reset Code</button>
+                </form>
+                <p style="text-align:center; margin-top:20px;">
+                    <a href="#" class="forgot-password-link" onclick="closeLoginPopup(); openLoginPopup()">Back to Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Popup -->
+    <div class="overlay-common" id="signupOverlay">
+        <div class="popup-common login-popup">
+            <button class="popup-close" onclick="closeSignupPopup()">×</button>
+            
+            <div class="popup-header">
+                <h2>Create a new account</h2>
+                <p>Join the ToolsShare community today!</p>
+            </div>
+            
+            <div class="success-message" id="signupSuccessMessage"></div>
+
+            <!-- Sign Up Form -->
+            <form class="auth-form active" id="signupForm" novalidate onsubmit="handleSignupSubmit(event)">
+                 <div class="form-group">
+                    <label for="signupName">Full Name *</label>
+                    <input type="text" id="signupName" required>
+                    <div class="form-error" id="signupNameError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address *</label>
+                    <input type="email" id="signupEmail" required>
+                    <div class="form-error" id="signupEmailError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="signupPhone">Phone Number *</label>
+                    <input type="tel" id="signupPhone" required>
+                    <div class="form-error" id="signupPhoneError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password *</label>
+                    <div class="password-group">
+                        <input type="password" id="signupPassword" required>
+                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('signupPassword')">👁️</button>
+                    </div>
+                    <div class="password-options">
+                        <button type="button" class="generate-password-btn" onclick="generateStrongPassword()">Generate Strong Password</button>
+                    </div>
+                    <div class="form-error" id="signupPasswordError"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">🎉 Create Account</button>
+                <p style="text-align:center; margin-top:20px;">
+                    Already have an account? <a href="#" class="forgot-password-link" onclick="closeSignupPopup(); openLoginPopup()">Log In</a>
+                </p>
+            </form>
+
+            <!-- OTP View (for Signup) -->
+            <div id="signupOtpView" class="auth-view">
+                <div class="popup-header">
+                    <h2>Verify Your Identity</h2>
+                    <p>Enter the 4-digit code sent to <b id="otpSignupDestination"></b></p>
+                </div>
+                <form onsubmit="handleOtpSubmit(event, 'signup')">
+                    <div class="otp-group">
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                        <input type="text" class="otp-input" maxlength="1" required>
+                    </div>
+                    <div class="form-group error" style="text-align:center;">
+                         <div class="form-error" id="otpSignupError"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">✔️ Verify</button>
+                </form>
+                <div class="otp-timer-resend">
+                    <p>Didn't get the code? <button id="resendSignupOtpBtn" disabled>Resend</button> <span id="signupOtpTimer"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Password View -->
+    <div class="overlay-common" id="resetPasswordOverlay">
+        <div class="popup-common login-popup">
+            <button class="popup-close" onclick="closeResetPasswordPopup()">×</button>
+            <div class="popup-header">
+                <h2>Set New Password</h2>
+                <p>Your new password must be different from previous ones.</p>
+            </div>
+            <form onsubmit="handleResetPasswordSubmit(event)">
+                <div class="form-group">
+                    <label for="newPassword">New Password *</label>
+                     <div class="password-group">
+                        <input type="password" id="newPassword" required>
+                        <button type="button" class="password-toggle-btn" onclick="togglePasswordVisibility('newPassword')">👁️</button>
+                    </div>
+                    <div class="form-error" id="newPasswordError"></div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmNewPassword">Confirm New Password *</label>
+                    <input type="password" id="confirmNewPassword" required>
+                    <div class="form-error" id="confirmNewPasswordError"></div>
+                </div>
+                <button type="submit" class="btn btn-primary">🔑 Reset Password</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header role="banner">
+        <div class="header-container">
+            <a href="#" class="logo" onclick="showPage('home')" aria-label="ToolsShare Home">
+                <div class="logo-icon">🔧</div>
+                ToolsShare
+            </a>
+
+            <!-- Search Bar with Location Dropdown -->
+            <div class="search-container">
+                <div class="location-dropdown-container">
+                    <button id="locationToggleBtn" class="location-toggle-btn" onclick="toggleLocationDropdown()">
+                        📍 <span id="locationIndicator">City</span>
+                        <span class="location-arrow">▼</span>
+                    </button>
+                    <div id="locationDropdownMenu">
+                        <a href="#" onclick="selectCity('Delhi', event)">Delhi</a>
+                        <a href="#" onclick="selectCity('Mumbai', event)">Mumbai</a>
+                        <a href="#" onclick="selectCity('Bangalore', event)">Bangalore</a>
+                        <a href="#" onclick="selectCity('Chennai', event)">Chennai</a>
+                        <a href="#" onclick="selectCity('Kolkata', event)">Kolkata</a>
+                        <a href="#" onclick="selectCity('Hyderabad', event)">Hyderabad</a>
+                    </div>
+                </div>
+                <input type="text" id="searchInput" placeholder="Search for tools...">
+                <input type="date" id="pickupDate" title="Pickup Date">
+                <input type="date" id="dropoffDate" title="Drop-off Date">
+                <div id="searchResults"></div>
+            </div>
+
+            <nav role="navigation" aria-label="Main navigation" id="mainNav">
+                <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
+                <a href="#" class="nav-link" onclick="showPage('categories')">Categories</a>
+                <a href="#" class="nav-link" onclick="showPage('listItem')">List your Item</a>
+                <a href="#" class="nav-link" onclick="showPage('aboutUs')">About Us</a>
+                <a href="#" class="nav-link" onclick="showPage('myCart')">
+                    🛒 My Cart <span id="cartCounter" class="nav-counter">0</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showPage('myWishlist')">
+                    ❤️ Wishlist <span id="wishlistCounter" class="nav-counter">0</span>
+                </a>
+
+                <a href="#" id="loginLink" onclick="openLoginPopup()">Login/Sign Up</a>
+                
+                <div class="profile-dropdown" id="profileDropdown">
+                    <button class="profile-btn" onclick="toggleProfileDropdown()" aria-haspopup="true" aria-expanded="false">
+                        <div class="profile-avatar" id="profileAvatar">JD</div>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <a href="#" class="dropdown-item" onclick="showPage('profile')">👤 My Profile</a>
+                        <a href="#" class="dropdown-item" onclick="showPage('myCart')">🛒 My Cart</a>
+                        <a href="#" class="dropdown-item" onclick="showPage('myWishlist')">❤️ My Wishlist</a>
+                        <a href="#" class="dropdown-item" onclick="logout()">🚪 Logout</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Home Page -->
+        <div class="page active" id="homePage">
+            <section class="hero">
+                <div class="hero-text">
+                    <h1>Your Project, Our Tools.</h1>
+                    <p>Get instant access to thousands of tools and appliances. Rent what you need, when you need it, with hassle-free delivery right to your door.</p>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1469&q=80" alt="Person working with tools in a workshop" loading="lazy">
+                </div>
+            </section>
+            
+            <div class="page-container">
+                <section>
+                    <h2>Popular Rentals</h2>
+                    <div class="product-grid" id="homeProductGrid"></div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Categories Page -->
+        <div class="page" id="categoriesPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>All Categories</h1>
+                    <p>From heavy-duty power tools to precision electronics, find everything you need for your next project.</p>
+                </div>
+                <div class="categories-grid">
+                    <div class="category-card-large" onclick="showPage('homeImprovement')">
+                        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1470&q=80" alt="Home Improvement Tools">
+                        <div class="category-card-large-content">
+                            <h2>Home Improvement & Tools</h2>
+                            <ul>
+                                <li>Power drill, impact driver</li>
+                                <li>Hammer drill, rotary hammer</li>
+                                <li>Angle grinder</li>
+                                <li>Circular saw, jigsaw</li>
+                                <li>Tile cutter, wet saw</li>
+                                <li>Heat gun, glue gun</li>
+                                <li>Sander (orbital, belt)</li>
+                                <li>Ladder (step, extension)</li>
+                                <li>Painting equipment</li>
+                                <li>Pressure washer</li>
+                                <li>Welding machine & gear</li>
+                                <li>Workbench, clamps</li>
+                                <li>Hand tools (spanners, etc.)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="category-card-large" onclick="showPage('gardening')">
+                        <img src="https://www.rasnetwork.org/wp-content/uploads/2023/10/Best-Gardening-Tools-Names-with-Pictures-and-Their-Uses.webp" alt="Gardening & Outdoor Equipment">
+                        <div class="category-card-large-content">
+                            <h2>Gardening & Outdoor</h2>
+                            <ul>
+                                <li>Lawn mower (electric, petrol)</li>
+                                <li>Hedge trimmer, brush cutter</li>
+                                <li>Leaf blower, garden vacuum</li>
+                                <li>Chainsaw & Pruning tools</li>
+                                <li>Water pumps & hoses</li>
+                                <li>Seed/fertilizer spreader</li>
+                                <li>Compost shredder</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="category-card-large" onclick="showPage('events')">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1470&q=80" alt="Event & Party Equipment">
+                        <div class="category-card-large-content">
+                            <h2>Event & Party Equipment</h2>
+                            <ul>
+                                <li>Folding tables & chairs</li>
+                                <li>Tents, canopies, gazebos</li>
+                                <li>Sound systems & speakers</li>
+                                <li>Projector & screen</li>
+                                <li>Stage & disco lighting</li>
+                                <li>Backdrops & decoration</li>
+                                <li>Catering equipment</li>
+                                <li>Photo booths & cameras</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="category-card-large" onclick="showPage('electronics')">
+                        <img src="https://www.shutterstock.com/image-illustration/3d-variety-home-appliances-concept-600nw-2048419898.jpg" alt="Electronics & Appliances">
+                        <div class="category-card-large-content">
+                            <h2>Electronics & Appliances</h2>
+                            <ul>
+                                <li>DSLR / mirrorless cameras</li>
+                                <li>Camera lenses & tripods</li>
+                                <li>GoPro & action cameras</li>
+                                <li>Drones & VR headsets</li>
+                                <li>Gaming consoles (PS, Xbox)</li>
+                                <li>Laptops, tablets</li>
+                                <li>Power banks, Wi-Fi routers</li>
+                                <li>Home appliances</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Individual Category Pages -->
+        <div class="page" id="homeImprovementPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Home Improvement</h1>
+                    <p>Tools for building, repairing, and creating.</p>
+                </div>
+                <div class="product-grid" id="homeImprovementGrid"></div>
+            </div>
+        </div>
+        <div class="page" id="gardeningPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Gardening & Outdoor</h1>
+                    <p>Everything you need for a perfect lawn and garden.</p>
+                </div>
+                <div class="product-grid" id="gardeningGrid"></div>
+            </div>
+        </div>
+        <div class="page" id="eventsPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Event & Party Equipment</h1>
+                    <p>Make your next event unforgettable.</p>
+                </div>
+                <div class="product-grid" id="eventsGrid"></div>
+            </div>
+        </div>
+        <div class="page" id="electronicsPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Electronics & Appliances</h1>
+                    <p>Capture moments, play games, and stay connected.</p>
+                </div>
+                <div class="product-grid" id="electronicsGrid"></div>
+            </div>
+        </div>
+        
+        <!-- List Your Item Page -->
+        <div class="page" id="listItemPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>List Your Item</h1>
+                    <p>Earn money by renting out your tools and appliances to your community.</p>
+                </div>
+                <form id="listItemForm" onsubmit="handleListItemSubmit(event)">
+                    <div class="form-group">
+                        <label for="itemName">Item Name</label>
+                        <input type="text" id="itemName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemDescription">Description</label>
+                        <textarea id="itemDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemCategory">Category</label>
+                        <select id="itemCategory" required>
+                            <option value="">-- Select a Category --</option>
+                            <option value="homeImprovement">Home Improvement</option>
+                            <option value="gardening">Gardening & Outdoor</option>
+                            <option value="events">Event & Party</option>
+                            <option value="electronics">Electronics</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemPrice">Price per Day (₹)</label>
+                        <input type="number" id="itemPrice" min="0" step="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemLocation">Your Location (City)</label>
+                        <input type="text" id="itemLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="itemImage">Upload Image</label>
+                        <input type="file" id="itemImage" accept="image/*" required>
+                        <img id="imagePreview" src="#" alt="Image Preview"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">List My Item</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- About Us Page -->
+        <div class="page" id="aboutUsPage">
+            <div class="page-container">
+                 <div class="page-header">
+                    <h1>Our Mission</h1>
+                    <p>At ToolsShare, we believe that the right tool should be just a doorstep away. Our mission is simple: make tool-sharing convenient, affordable, and reliable.</p>
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>We are a community-driven platform that connects people who have tools with those who need them — helping borrowers save money and enabling lenders to earn extra income from the tools they already own.</p>
+                        <p>Whether you need a drill for a weekend DIY project, a lawn mower for seasonal yard work, or a projector for a special event — ToolsShare brings them to you without the hassle of ownership.</p>
+                        <h2>What Makes Us Different?</h2>
+                        <ul>
+                            <li><strong>Convenience at your door</strong> – Our trusted delivery partners pick up tools from the lender’s home and deliver them directly to the borrower’s doorstep.</li>
+                            <li><strong>Save and earn</strong> – Borrowers save money by renting instead of buying, while lenders make money from idle tools.</li>
+                            <li><strong>No pickup-point confusion</strong> – Forget the hassle of coordinating meeting points and timings. We handle it all for you.</li>
+                            <li><strong>Trusted community</strong> – Verified users and transparent listings ensure safety and trust.</li>
+                        </ul>
+                        <p>With ToolsShare, you don’t just rent tools — you join a smarter way of living.</p>
+                    </div>
+                    <div class="about-image">
+                        <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1374&q=80" alt="A diverse team collaborating">
+                    </div>
+                </div>
+                <div class="address-container">
+                    <h3>Our Office</h3>
+                    <p>Indian Institute of Management, Rohtak, Management City, Southern Bypass, Sunaria, Rohtak, Haryana 124010, India</p>
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3485.017131168142!2d76.8203657150942!3d29.01666488222164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d85a42675b69b%3A0x4f420550543ad84!2sIndian%20Institute%20of%20Management%20Rohtak!5e0!3m2!1sen!2sin!4v1660277114753!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact Us Page -->
+        <div class="page" id="contactUsPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Contact Us</h1>
+                    <p>We're here to help. Reach out to us through any of the channels below.</p>
+                </div>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h2>Get in Touch</h2>
+                        <a href="tel:+919001947382">
+                            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"></path></svg>
+                            <span>+91 9001947382</span>
+                        </a>
+                        <a href="mailto:palakbhaskar20@gmail.com">
+                            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>
+                            <span>palakbhaskar20@gmail.com</span>
+                        </a>
+                        <p>
+                           <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path></svg>
+                           <span>IIM Rohtak, Management City, Sunaria, Rohtak, Haryana 124010, India</span>
+                        </p>
+                    </div>
+                    <div class="contact-form">
+                        <h2>Send us a Message</h2>
+                        <form onsubmit="event.preventDefault(); showToast('Message sent successfully!'); this.reset();">
+                            <div class="form-group">
+                                <label for="contactName">Your Name</label>
+                                <input type="text" id="contactName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Your Email</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactMessage">Message</label>
+                                <textarea id="contactMessage" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- My Cart Page -->
+        <div class="page" id="myCartPage">
+            <div class="page-container">
+                 <div class="page-header">
+                    <h1>My Cart</h1>
+                    <p>Review your items and proceed to checkout.</p>
+                </div>
+                <div id="cartContent">
+                    <!-- Cart items will be injected here by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- My Wishlist Page -->
+        <div class="page" id="myWishlistPage">
+             <div class="page-container">
+                 <div class="page-header">
+                    <h1>My Wishlist</h1>
+                    <p>Your favorite tools, saved for later.</p>
+                </div>
+                <div id="wishlistContent">
+                    <!-- Wishlist items will be injected here by JS -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Checkout Page -->
+        <div class="page" id="checkoutPage">
+            <div class="page-container checkout-container">
+                <div class="page-header">
+                    <h1>Checkout</h1>
+                </div>
+                <div class="checkout-steps">
+                    <div id="step-details" class="checkout-step active">1. Delivery Details</div>
+                    <div id="step-payment" class="checkout-step">2. Payment</div>
+                    <div id="step-confirmation" class="checkout-step">3. Confirmation</div>
+                </div>
+
+                <!-- Step 1: Delivery Details -->
+                <div id="deliveryDetailsView" class="checkout-view active">
+                    <form id="deliveryForm" onsubmit="goToPaymentStep(event)">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Delivery Address</label>
+                            <input type="text" id="address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode">Pincode</label>
+                            <input type="text" id="pincode" required pattern="[0-9]{6}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+                    </form>
+                </div>
+
+                <!-- Step 2: Payment -->
+                <div id="paymentView" class="checkout-view">
+                    <h3>Select Payment Method</h3>
+                    <div class="payment-options">
+                        <div class="payment-option" onclick="selectPayment(this)">Credit/Debit Card</div>
+                        <div class="payment-option" onclick="selectPayment(this)">UPI</div>
+                        <div class="payment-option" onclick="selectPayment(this)">Net Banking</div>
+                    </div>
+                    <div id="orderSummary" class="order-summary"></div>
+                    <button class="btn btn-primary" style="margin-top: 20px;" onclick="confirmPayment()">Pay Now (Simulated)</button>
+                </div>
+
+                <!-- Step 3: Confirmation -->
+                <div id="confirmationView" class="checkout-view" style="text-align: center;">
+                    <span class="confirmation-icon">✅</span>
+                    <h2>Order Confirmed!</h2>
+                    <p>Thank you for your order. Your tools are on the way.</p>
+                    <p>A confirmation email has been sent to your registered address.</p>
+                    <button class="btn btn-primary" style="margin-top: 20px;" onclick="showPage('home')">Back to Home</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms of Use Page -->
+        <div class="page" id="termsOfUsePage">
+             <div class="page-container">
+                 <div class="page-header">
+                    <h1>Terms of Use</h1>
+                    <p>Last updated: August 12, 2025</p>
+                </div>
+                <div class="terms-content">
+                    <h2>1. Platform Role</h2>
+                    <p>ToolsShare is a facilitator that connects individuals who wish to lend tools (“Lenders”) with those who wish to borrow tools (“Borrowers”). We do not own the tools listed on our platform.</p>
+                    
+                    <h2>2. User Responsibilities</h2>
+                    <p>Lenders must ensure that tools are safe, functional, and accurately described in listings. Borrowers must return tools in the same condition as received, on or before the agreed return date. Users must provide accurate personal and contact details for verification purposes.</p>
+                    
+                    <h2>3. Delivery & Pickup</h2>
+                    <p>Our delivery partners will collect tools from the lender’s location and deliver them to the borrower’s address. Both parties must ensure availability during the agreed pickup and drop-off times. Any failed delivery attempt due to user unavailability may result in additional charges.</p>
+                    
+                    <h2>4. Payments & Fees</h2>
+                    <p>Borrowers agree to pay the rental fee, delivery charges, and any applicable deposits before tool pickup. Lenders will receive earnings after successful tool return, minus ToolsShare’s service fee.</p>
+                    
+                    <h2>5. Damage & Loss</h2>
+                    <p>Borrowers are responsible for any damage or loss of tools during the rental period. In case of disputes, ToolsShare reserves the right to mediate and determine appropriate compensation.</p>
+                    
+                    <h2>6. Prohibited Activities</h2>
+                    <p>Listing or renting prohibited, unsafe, or stolen tools. Using rented tools for illegal purposes. Misrepresentation of identity or tool ownership.</p>
+                    
+                    <h2>7. Liability</h2>
+                    <p>ToolsShare acts only as an intermediary and is not liable for damages, injuries, or losses arising from tool use.</p>
+                    
+                    <h2>8. Amendments</h2>
+                    <p>We reserve the right to modify these Terms of Use at any time. Users will be notified of major changes. By continuing to use ToolsShare, you acknowledge that you have read, understood, and agreed to these terms.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div class="page" id="profilePage">
+            <div class="page-container profile-container">
+                <div class="profile-sidebar">
+                    <div class="profile-info">
+                        <div class="profile-avatar-large" id="profileAvatarLarge">JD</div>
+                        <h3 id="profileName" style="font-size: 1.5rem; margin-bottom: 5px;">John Doe</h3>
+                        <p style="color: var(--text-secondary);">Member since 2024</p>
+                    </div>
+                    <button class="btn btn-primary" style="width: auto; padding: 10px 20px; margin-bottom: 20px;">
+                        📝 Edit Profile
+                    </button>
+                    <div class="profile-info-section">
+                        <h3>Your Information</h3>
+                        <a href="#" onclick="showPage('myOrders')">Your Orders</a>
+                        <a href="#" onclick="showPage('myWishlist')">Your Wishlist</a>
+                        <a href="#" onclick="showPage('addressBook')">Address Book</a>
+                    </div>
+                    <div class="profile-info-section">
+                        <h3>Payments Options</h3>
+                        <a href="#" onclick="showPage('savedCards')">Cards Saved</a>
+                        <a href="#" onclick="showPage('savedWallet')">Wallet</a>
+                        <a href="#" onclick="showPage('savedUpi')">UPI IDs Saved</a>
+                        <a href="#" onclick="showPage('rewards')">Your Collected Rewards</a>
+                    </div>
+                     <div class="profile-info-section" style="border-bottom: none;">
+                        <h3>Other Information</h3>
+                        <a href="#" onclick="showPage('aboutUs')">About Us</a>
+                        <a href="#" onclick="showPage('accountPrivacy')">Account Privacy</a>
+                        <a href="#" onclick="showPage('shareSite')">Share the Site</a>
+                    </div>
+                </div>
+                <div class="profile-content">
+                    <h2>Profile Dashboard</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                        Welcome back! Here you can manage your tools, track your rentals, and view your earnings.
+                    </p>
+                    <div class="profile-info-section">
+                        <h3>User Details</h3>
+                        <div class="profile-details">
+                            <p><strong>Name:</strong> <span id="profileNameDetail">John Doe</span></p>
+                            <p><strong>Email:</strong> <span id="profileEmailDetail">johndoe@example.com</span></p>
+                            <p><strong>Mobile No.:</strong> <span id="profilePhoneDetail">9876543210</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- New Pages from Profile Dashboard -->
+        <div class="page" id="myOrdersPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Your Orders</h1>
+                    <p>Track your past and current rental orders.</p>
+                </div>
+                <div class="hidden-content-section" style="text-align:center;">
+                    <p style="color: var(--text-secondary);">You have no active or past orders at this time.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="addressBookPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Address Book</h1>
+                    <p>Manage your saved addresses for faster checkout.</p>
+                </div>
+                <div class="hidden-content-section" style="text-align:center;">
+                    <p style="color: var(--text-secondary);">No addresses saved. Add one during your next checkout!</p>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="savedCardsPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Saved Cards</h1>
+                    <p>Securely manage your credit and debit cards.</p>
+                </div>
+                <div class="hidden-content-section" style="text-align:center;">
+                    <p style="color: var(--text-secondary);">No cards saved to your account.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="savedWalletPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Wallet</h1>
+                    <p>View your wallet balance and recent transactions.</p>
+                </div>
+                <div class="hidden-content-section" style="text-align:center;">
+                    <p style="color: var(--text-secondary);">Your wallet balance is ₹0.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="savedUpiPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Saved UPI IDs</h1>
+                    <p>Manage your saved UPI accounts for quick payments.</p>
+                </div>
+                <div class="hidden-content-section" style="text-align:center;">
+                    <p style="color: var(--text-secondary);">No UPI IDs saved.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="rewardsPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Your Rewards</h1>
+                    <p>View your collected loyalty points and rewards.</p>
+                </div>
+                <div class="hidden-content-section" style="text-align:center;">
+                    <p style="color: var(--text-secondary);">You currently have no rewards.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="accountPrivacyPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Account Privacy</h1>
+                    <p>Adjust your privacy settings and preferences.</p>
+                </div>
+                <div class="hidden-content-section" style="text-align:center;">
+                    <p style="color: var(--text-secondary);">Your account privacy settings are up to date.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page" id="shareSitePage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Share ToolsShare</h1>
+                    <p>Help us grow our community by sharing the site with your friends.</p>
+                </div>
+                <div class="hidden-content-section" style="text-align:center;">
+                    <p style="color: var(--text-secondary);">
+                        Share this link with your friends to get ₹100 off your next rental:
+                        <br><br>
+                        <a href="https://www.toolsshare.com?ref=user123" style="color:var(--accent); font-weight:bold;">https://www.toolsshare.com?ref=user123</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hidden Page (Meet the Team) -->
+        <div class="page" id="hiddenPage">
+            <div class="page-container">
+                <div class="page-header">
+                    <h1>Meet The Team</h1>
+                    <p>The passionate minds behind ToolsShare.</p>
+                </div>
+                <div class="hidden-content-section">
+                    <div id="mainIdeaSection">
+                        <h2>Main Idea</h2>
+                        <p>Our website aims to connect and build trust among people by creating a platform for renting tools. Lenders can utilize idle capacity to earn money, while borrowers can meet temporary needs at affordable prices. Both sides act as prosumers instead of mere consumers.</p>
+                        <p>Delivery partners handle pick-up and drop-off at the user’s doorstep, saving the trouble of deciding timings and pickup points. The escrow payment system builds trust and ensures smooth transactions.</p>
+                    </div>
+                    <div id="designPhilosophySection">
+                        <h2>Design Philosophy</h2>
+                        <p>We use a black background with off-white text and borders to convey professionalism, durability, and clarity.</p>
+                        <ul>
+                            <li><strong>Black:</strong> Strength, sophistication, and industrial reliability — aligning with the robustness customers expect from tools.</li>
+                            <li><strong>Off-white:</strong> A softer contrast for readability without harsh glare, keeping the experience pleasant.</li>
+                            <li><strong>Minimalist styling:</strong> Keeps focus on tools and details, avoiding unnecessary distractions.</li>
+                            <li><strong>Industrial blueprint aesthetic:</strong> Off-white borders subtly mimic schematics, reinforcing precision and practicality.</li>
+                        </ul>
+                    </div>
+                    <div id="navigationOrderSection">
+                        <h2>Navigation Order Reasoning</h2>
+                        <p>The navigation bar is designed to guide users through a natural journey on the site:</p>
+                        <ol>
+                            <li><strong>Home:</strong> The starting point, providing an overview of the platform and popular items.</li>
+                            <li><strong>Categories:</strong> Allows users to immediately dive into product discovery based on their needs.</li>
+                            <li><strong>List your Item:</strong> Encourages engagement and growing our community by offering a path for users to become lenders.</li>
+                            <li><strong>About Us:</strong> Builds trust and brand credibility by explaining our mission and values.</li>
+                            <li><strong>My Cart & Wishlist:</strong> Provides easy access to transactional and saved items for seamless shopping.</li>
+                            <li><strong>Login/Sign Up:</strong> Placed at the end to allow users to explore freely before committing to an account.</li>
+                        </ol>
+                    </div>
+                    
+                    <div id="teamTableSection">
+                        <h2>Team Members</h2>
+                        <table id="teamTable">
+                            <thead>
+                                <tr>
+                                    <th>NAME</th>
+                                    <th>ROLL NO.</th>
+                                    <th>CONTRIBUTION</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PALAK BHASKAR</td>
+                                    <td>IPM05047</td>
+                                    <td>Designed the overall UI/UX, crafted the content for all pages, and managed the project's creative direction.</td>
+                                </tr>
+                                <tr>
+                                    <td>SRISHTI DEEPAK</td>
+                                    <td>IPM05057</td>
+                                    <td>Developed the interactive JavaScript features, including the dynamic navigation, search functionality, and cart logic.</td>
+                                </tr>
+                                <tr>
+                                    <td>MANJOT KAUR</td>
+                                    <td>IPM05041</td>
+                                    <td>Implemented the core HTML structure, ensured semantic markup, and wrote the responsive CSS for all screen sizes.</td>
+                                </tr>
+                                <tr>
+                                    <td>SAMAR MORE</td>
+                                    <td>IPM05054</td>
+                                    <td>Architected the user authentication system, including the advanced login/signup forms and secure data handling.</td>
+                                </tr>
+                                <tr>
+                                    <td>DEVDEVAN R. SAJI</td>
+                                    <td>IPM05021</td>
+                                    <td>Oversaw the front-end development, integrated the popups, and handled bug-fixing and performance optimization.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="testimonialSection">
+                        <h2>Sample Testimonial</h2>
+                        <div class="testimonial-box">
+                            <p>"ToolsShare made my DIY project so much easier! I didn’t have to buy expensive tools I’ll only use once, and the delivery was right on time. Highly recommend!"</p>
+                            <p>— Aman Verma, Pune</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div>
+                <h4>About Us</h4>
+                <p style="color: var(--text-secondary); max-width: 250px;">The easiest way to rent tools and equipment, delivered right to your doorstep.</p>
+            </div>
+            <div>
+                <h4>Quick Links</h4>
+                <a href="#" onclick="showPage('home')">Home</a>
+                <a href="#" onclick="showPage('aboutUs')">About Us</a>
+                <a href="#" onclick="showPage('categories')">Categories</a>
+            </div>
+             <div>
+                <h4>Support</h4>
+                <a href="#" onclick="showPage('contactUs')">Contact Us</a>
+                <a href="#" onclick="showPage('termsOfUse')">Terms of Use</a>
+                <a href="/sitemap.xml" target="_blank">Sitemap</a>
+            </div>
+            <div>
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                     <a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn">
+                         <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                     <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+                         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <div id="toast-container"></div>
+
+<script>
+// --- GLOBAL STATE & CONSTANTS ---
+let currentUser = null;
+let selectedCity = null;
+let isLoggedIn = false;
+let otpTimerInterval = null;
+let currentAuthContext = { flow: '', credential: '' }; // To track signup, login, or forgotPassword
+
+const products = [
+    { id: 1, name: "DSLR Camera", price: 150, desc: "High-quality DSLR for stunning photos.", img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=300&q=80", category: "electronics" },
+    { id: 2, name: "HD Projector", price: 100, desc: "For movies and presentations.", img: "https://www.bhphotovideo.com/images/images2000x2000/sony_vpl_hw55es_full_hd_3d_1013899.jpg", category: "events" },
+    { id: 3, name: "Power Drill", price: 80, desc: "Heavy-duty for any project.", img: "https://cdn.thewirecutter.com/wp-content/media/2020/12/powerdrills-2048px-0568.jpg?auto=webp&quality=75&width=1024", category: "homeImprovement" },
+    { id: 4, name: "Lawn Mower", price: 100, desc: "Keep your garden neat.", img: "https://www.hondaindiapower.com/admin/public/uploads/Products/jlmezzzik_Cover.jpg", category: "gardening" },
+    { id: 5, name: "Portable Generator", price: 180, desc: "Compact power on the go.", img: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcSpHmqENqZlmgPVXTpDQXM42ni4qqhu8xR9_JKowwB8IHZC-9HV1dJrGiBiQzHExWNMZOAUajGqp6x8udbNxJKEHIJclpvu", category: "homeImprovement" },
+    { id: 6, name: "Pressure Washer", price: 120, desc: "High-pressure cleaning power.", img: "https://m.media-amazon.com/images/I/815MdL7RvtL._UF1000,1000_QL80_.jpg", category: "gardening" },
+    { id: 7, name: "Angle Grinder", price: 90, desc: "For cutting and grinding tasks.", img: "https://m.media-amazon.com/images/I/61zjdUY6iqL._UF1000,1000_QL80_.jpg", category: "homeImprovement" },
+    { id: 8, name: "Camping Tent", price: 110, desc: "4-person waterproof tent.", img: "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=300&q=80", category: "events" },
+    { id: 9, name: "Gaming Console", price: 200, desc: "Latest generation gaming fun.", img: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=300&q=80", category: "electronics" },
+    { id: 10, name: "Circular Saw", price: 95, desc: "Precision cutting for wood.", img: "https://images.unsplash.com/photo-1629293316973-295551a3a31e?auto=format&fit=crop&w=300&q=80", category: "homeImprovement" },
+];
+// Cart now stores objects with product and quantity
+let cart = []; 
+let wishlist = [];
+
+// --- INITIALIZATION ---
+window.addEventListener('DOMContentLoaded', () => {
+    // Load data from localStorage
+    try {
+        const savedUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (savedUser) {
+            currentUser = savedUser;
+            isLoggedIn = true;
+            updateUIAfterLogin();
+        }
+        cart = JSON.parse(localStorage.getItem('cart')) || [];
+        wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    } catch (e) {
+        console.error('Error loading saved data:', e);
+        localStorage.clear();
+    }
+    
+    // Handle initial location selection
+    selectedCity = localStorage.getItem('selectedCity');
+    if (!selectedCity) {
+        document.getElementById('locationOverlay').style.display = 'flex';
+    } else {
+        document.getElementById('locationOverlay').style.display = 'none';
+        document.getElementById('locationIndicator').textContent = selectedCity;
+        loadHomeProducts();
+    }
+    
+    setupOtpInputs();
+    setupNavLinkHighlighting();
+    setupKonamiCode();
+    setupSearch();
+    setupListItemForm();
+    updateNavCounters();
+    showPage('home');
+});
+
+// --- UI & NAVIGATION ---
+function showPage(pageName) {
+    // Check for authentication on 'listItem' and 'profile' pages
+    if ((pageName === 'listItem' || pageName === 'profile') && !isLoggedIn) {
+        openLoginPopup();
+        showToast("Please log in to view this page.", "error");
+        return;
+    }
+    
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    
+    const targetPage = document.getElementById(pageName + 'Page');
+    if (targetPage) {
+        targetPage.classList.add('active');
+    }
+    
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    const activeLink = Array.from(document.querySelectorAll('.nav-link')).find(l => l.getAttribute('onclick').includes(pageName));
+    if (activeLink) activeLink.classList.add('active');
+
+    document.getElementById('dropdownMenu').classList.remove('show');
+    
+    // Load dynamic content
+    if (pageName === 'home') loadHomeProducts();
+    if (pageName === 'myCart') loadCart();
+    if (pageName === 'myWishlist') loadWishlist();
+    if (pageName === 'checkout') loadCheckoutPage();
+    if (['homeImprovement', 'gardening', 'events', 'electronics'].includes(pageName)) {
+        const gridId = pageName + 'Grid';
+        loadCategoryProducts(pageName, gridId);
+    }
+    if (pageName === 'listItem' && currentUser) {
+        document.getElementById('itemLocation').value = selectedCity || '';
+    }
+    if (pageName === 'profile' && currentUser) {
+        updateProfilePageDetails();
+    }
+    // Close location dropdown if open
+    document.getElementById('locationDropdownMenu').classList.remove('show');
+    document.getElementById('locationToggleBtn').classList.remove('active');
+
+    window.scrollTo(0, 0);
+}
+
+function selectCity(cityName, event) {
+    event.preventDefault();
+    selectedCity = cityName;
+    localStorage.setItem('selectedCity', cityName);
+    document.getElementById('locationIndicator').textContent = cityName;
+    
+    document.querySelectorAll('.city-option').forEach(el => el.classList.remove('selected'));
+    // This is for the initial popup
+    if(event.currentTarget.classList.contains('city-option')) {
+        event.currentTarget.classList.add('selected');
+    }
+
+    setTimeout(() => {
+        document.getElementById('locationOverlay').style.display = 'none';
+        document.getElementById('locationDropdownMenu').classList.remove('show');
+        document.getElementById('locationToggleBtn').classList.remove('active');
+        loadHomeProducts();
+    }, 300);
+}
+
+function toggleLocationDropdown() {
+    const dropdown = document.getElementById('locationDropdownMenu');
+    const button = document.getElementById('locationToggleBtn');
+    dropdown.classList.toggle('show');
+    button.classList.toggle('active');
+}
+
+
+// --- SEARCH FUNCTIONALITY ---
+function setupSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+
+    searchInput.addEventListener('keyup', () => {
+        const query = searchInput.value.toLowerCase();
+        if (query.length < 2) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        const results = products.filter(p => p.name.toLowerCase().includes(query));
+        searchResults.innerHTML = '';
+        if (results.length > 0) {
+            results.forEach(product => {
+                const link = document.createElement('a');
+                link.href = '#';
+                link.textContent = product.name;
+                link.onclick = (e) => {
+                    e.preventDefault();
+                    showPage(product.category);
+                    searchInput.value = '';
+                    searchResults.style.display = 'none';
+                };
+                searchResults.appendChild(link);
+            });
+            searchResults.style.display = 'block';
+        } else {
+            searchResults.style.display = 'none';
+        }
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-container')) {
+            searchResults.style.display = 'none';
+        }
+    });
+}
+
+// --- PRODUCT & LIST LOADING ---
+function createProductHTML(product) {
+    const isInWishlist = wishlist.some(item => item.id === product.id);
+    return `
+        <div class="product-actions">
+            <button class="product-action-btn ${isInWishlist ? 'active' : ''}" onclick="toggleWishlist(event, ${product.id})" aria-label="Add to Wishlist">
+                <svg viewBox="0 0 24 24"><path d="M12 4.248c-3.148-5.402-12-3.825-12 2.942 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.942z"/></svg>
+            </button>
+        </div>
+        <img src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x180/1f1f1f/ffffff?text=Image+Not+Found';">
+        <div class="product-content">
+            <p style="font-weight: 600; margin: 10px 0 5px 0;">${product.name}</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 10px 0;">${product.desc}</p>
+            <p class="price">₹${product.price}/day</p>
+        </div>
+        <button class="rent-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+    `;
+}
+
+function populateGrid(gridId, productList) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.innerHTML = '';
+    productList.forEach(product => {
+        const item = document.createElement("div");
+        item.className = "product";
+        item.innerHTML = createProductHTML(product);
+        grid.appendChild(item);
+    });
+}
+
+function loadHomeProducts() {
+    const popularProducts = products.slice(0, 8);
+    populateGrid("homeProductGrid", popularProducts);
+}
+
+function loadCategoryProducts(category, gridId) {
+    const categoryProducts = products.filter(p => p.category === category);
+    populateGrid(gridId, categoryProducts);
+}
+
+function loadCart() {
+    const cartContent = document.getElementById('cartContent');
+    if (cart.length === 0) {
+        cartContent.innerHTML = `
+            <div class="empty-message">
+                <img src="https://images.unsplash.com/photo-1574169237996-3b6103556552?q=80&w=1470&auto=format&fit=crop" alt="Empty Cart Illustration">
+                <h2>Your Cart is Empty</h2>
+                <p>Looks like you haven't added any tools to your cart yet.</p>
+            </div>`;
+        return;
+    }
+
+    let itemsHTML = '<div class="cart-items-list">';
+    let total = 0;
+
+    cart.forEach(cartItem => {
+        const product = cartItem.product;
+        itemsHTML += `
+            <div class="cart-item">
+                <img src="${product.img}" alt="${product.name}">
+                <div class="cart-item-details">
+                    <h3>${product.name}</h3>
+                    <p class="price">₹${product.price}/day</p>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="decreaseQuantity(${product.id})">-</button>
+                        <span class="quantity-display">${cartItem.quantity}</span>
+                        <button class="quantity-btn" onclick="increaseQuantity(${product.id})">+</button>
+                    </div>
+                </div>
+                <button class="remove-btn" onclick="removeFromCart(${product.id})">Remove</button>
+            </div>
+        `;
+        total += product.price * cartItem.quantity;
+    });
+    itemsHTML += '</div>';
+
+    const summaryHTML = `
+        <h3>Order Summary</h3>
+        <div class="cart-total"><strong>Total:</strong> ₹${total}/day</div>
+        <button class="btn btn-primary" onclick="proceedToCheckout()">Proceed to Checkout</button>
+    `;
+    
+    cartContent.innerHTML = `<div class="cart-container">${itemsHTML}<div class="cart-summary">${summaryHTML}</div></div>`;
+}
+
+function loadWishlist() {
+    const wishlistContent = document.getElementById('wishlistContent');
+    if (wishlist.length === 0) {
+        wishlistContent.innerHTML = `
+            <div class="empty-message">
+                <img src="https://images.unsplash.com/photo-1508921340878-ba53e1f416ec?q=80&w=1470&auto=format&fit=crop" alt="Empty Wishlist Illustration">
+                <h2>Your Wishlist is Empty</h2>
+                <p>Add your favorite tools by clicking the heart icon.</p>
+            </div>`;
+        return;
+    }
+
+    let itemsHTML = '<div class="product-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));">';
+    wishlist.forEach(item => {
+        itemsHTML += `<div class="product">${createProductHTML(item)}</div>`;
+    });
+    itemsHTML += '</div>';
+    
+    wishlistContent.innerHTML = itemsHTML;
+}
+
+
+// --- CART & WISHLIST ACTIONS ---
+function addToCart(productId) {
+    const productToAdd = products.find(p => p.id === productId);
+    if (!productToAdd) return;
+
+    const cartItem = cart.find(item => item.product.id === productId);
+
+    if (cartItem) {
+        cartItem.quantity++;
+        showToast(`${productToAdd.name} quantity updated in cart.`);
+    } else {
+        cart.push({ product: productToAdd, quantity: 1 });
+        showToast(`${productToAdd.name} added to cart!`);
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateNavCounters();
+    
+    if (document.getElementById('myCartPage').classList.contains('active')) {
+        loadCart();
+    }
+}
+
+function increaseQuantity(productId) {
+    const cartItem = cart.find(item => item.product.id === productId);
+    if (cartItem) {
+        cartItem.quantity++;
+        localStorage.setItem('cart', JSON.stringify(cart));
+        loadCart();
+        updateNavCounters();
+    }
+}
+
+function decreaseQuantity(productId) {
+    const cartItem = cart.find(item => item.product.id === productId);
+    if (cartItem) {
+        cartItem.quantity--;
+        if (cartItem.quantity === 0) {
+            removeFromCart(productId);
+        } else {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+            updateNavCounters();
+        }
+    }
+}
+
+
+function removeFromCart(productId) {
+    const productName = cart.find(item => item.product.id === productId)?.product.name || 'Item';
+    cart = cart.filter(item => item.product.id !== productId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCart();
+    updateNavCounters();
+    showToast(`${productName} removed from cart.`);
+}
+
+function toggleWishlist(event, productId) {
+    event.stopPropagation();
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    const button = event.currentTarget;
+    const index = wishlist.findIndex(item => item.id === productId);
+
+    if (index > -1) {
+        wishlist.splice(index, 1);
+        showToast(`${product.name} removed from wishlist.`);
+        button.classList.remove('active');
+    } else {
+        wishlist.push(product);
+        showToast(`${product.name} added to wishlist!`);
+        button.classList.add('active');
+    }
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    updateNavCounters();
+
+    if (document.getElementById('myWishlistPage').classList.contains('active')) {
+        loadWishlist();
+    }
+}
+
+// --- CHECKOUT FLOW ---
+function proceedToCheckout() {
+    if (!isLoggedIn) {
+        showToast('Please log in to proceed.');
+        openLoginPopup();
+        return;
+    }
+    if (cart.length === 0) {
+        showToast('Your cart is empty.');
+        return;
+    }
+    showPage('checkout');
+}
+
+function loadCheckoutPage() {
+    document.getElementById('step-details').classList.add('active');
+    document.getElementById('step-payment').classList.remove('active', 'completed');
+    document.getElementById('step-confirmation').classList.remove('active', 'completed');
+    
+    document.getElementById('deliveryDetailsView').classList.add('active');
+    document.getElementById('paymentView').classList.remove('active');
+    document.getElementById('confirmationView').classList.remove('active');
+
+    if (currentUser) {
+        document.getElementById('fullName').value = currentUser.name;
+    }
+    if (selectedCity) {
+        document.getElementById('city').value = selectedCity;
+    }
+}
+
+function goToPaymentStep(event) {
+    event.preventDefault();
+    if (document.getElementById('fullName').value && document.getElementById('address').value) {
+        document.getElementById('step-details').classList.add('completed');
+        document.getElementById('step-payment').classList.add('active');
+        
+        document.getElementById('deliveryDetailsView').classList.remove('active');
+        document.getElementById('paymentView').classList.add('active');
+
+        let total = cart.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
+        let totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        document.getElementById('orderSummary').innerHTML = `
+            <h4>Order Summary</h4>
+            <p>Total Items: ${totalItems}</p>
+            <p class="cart-total"><strong>Total: ₹${total}/day</strong></p>
+        `;
+    } else {
+        showToast("Please fill all delivery details.", "error");
+    }
+}
+
+function selectPayment(element) {
+    document.querySelectorAll('.payment-option').forEach(el => el.classList.remove('selected'));
+    element.classList.add('selected');
+}
+
+function confirmPayment() {
+    document.getElementById('step-payment').classList.add('completed');
+    document.getElementById('step-confirmation').classList.add('active');
+    
+    document.getElementById('paymentView').classList.remove('active');
+    document.getElementById('confirmationView').classList.add('active');
+
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateNavCounters();
+}
+
+
+// --- UTILITY FUNCTIONS ---
+function updateNavCounters() {
+    const cartCounter = document.getElementById('cartCounter');
+    const wishlistCounter = document.getElementById('wishlistCounter');
+
+    const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const wishlistCount = wishlist.length;
+
+    if (cartCount > 0) {
+        cartCounter.textContent = cartCount;
+        cartCounter.classList.add('visible');
+    } else {
+        cartCounter.classList.remove('visible');
+    }
+
+    if (wishlistCount > 0) {
+        wishlistCounter.textContent = wishlistCount;
+        wishlistCounter.classList.add('visible');
+    } else {
+        wishlistCounter.classList.remove('visible');
+    }
+}
+
+
+function showToast(message, type = 'success') {
+    const container = document.getElementById('toast-container') || document.body;
+    const toast = document.createElement('div');
+    toast.className = 'toast-notification';
+    toast.textContent = message;
+    if (type === 'error') {
+        toast.style.backgroundColor = 'var(--error)';
+    }
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+
+function setupNavLinkHighlighting() {
+    const navLinks = document.querySelectorAll('#mainNav .nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            navLinks.forEach(l => l.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+        });
+    });
+}
+
+// --- HIDDEN PAGE (KONAMI CODE) ---
+function setupKonamiCode() {
+    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+    let konamiIndex = 0;
+    document.addEventListener('keydown', (e) => {
+        if (e.key.toLowerCase() === konamiCode[konamiIndex].toLowerCase()) {
+            konamiIndex++;
+            if (konamiIndex === konamiCode.length) {
+                showPage('hidden');
+                showToast('Konami code activated!');
+                konamiIndex = 0;
+            }
+        } else {
+            konamiIndex = 0;
+        }
+    });
+}
+
+
+// --- AUTH POPUP MANAGEMENT ---
+function openLoginPopup() {
+    document.getElementById('loginOverlay').style.display = 'flex';
+    document.getElementById('signupOverlay').style.display = 'none';
+    document.getElementById('resetPasswordOverlay').style.display = 'none';
+    resetAuthForms('login');
+}
+function openSignupPopup() {
+    document.getElementById('signupOverlay').style.display = 'flex';
+    document.getElementById('loginOverlay').style.display = 'none';
+    document.getElementById('resetPasswordOverlay').style.display = 'none';
+    resetAuthForms('signup');
+}
+function closeLoginPopup() {
+    document.getElementById('loginOverlay').style.display = 'none';
+    clearInterval(otpTimerInterval);
+}
+function closeSignupPopup() {
+    document.getElementById('signupOverlay').style.display = 'none';
+    clearInterval(otpTimerInterval);
+}
+function closeResetPasswordPopup() {
+     document.getElementById('resetPasswordOverlay').style.display = 'none';
+}
+
+
+function showAuthView(viewId, popupId) {
+    const popup = document.getElementById(popupId);
+    if (!popup) return;
+    popup.querySelectorAll('.auth-view').forEach(v => v.classList.remove('active'));
+    popup.querySelector(`#${viewId}`).classList.add('active');
+    resetAuthForms(popupId);
+}
+
+function resetAuthForms(popupId) {
+    const popup = document.getElementById(popupId);
+    if (!popup) return;
+    popup.querySelectorAll('form').forEach(form => form.reset());
+    popup.querySelectorAll('.form-group').forEach(group => group.classList.remove('error'));
+    popup.querySelectorAll('.form-error').forEach(error => {
+        error.textContent = '';
+        error.style.display = 'none';
+    });
+}
+
+// --- FORM VALIDATION & HELPERS ---
+function validateEmail(email) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
+function validatePhone(phone) { return /^[0-9]{10}$/.test(phone); }
+function validatePassword(password) { return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password); }
+
+function showFieldError(fieldId, message) {
+    const field = document.getElementById(fieldId);
+    const errorElement = document.getElementById(fieldId + 'Error');
+    if (field && errorElement) {
+        field.closest('.form-group').classList.add('error');
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+    }
+}
+function clearFieldError(fieldId) {
+    const field = document.getElementById(fieldId);
+    const errorElement = document.getElementById(fieldId + 'Error');
+    if (field && errorElement) {
+        field.closest('.form-group').classList.remove('error');
+        errorElement.style.display = 'none';
+    }
+}
+
+function togglePasswordVisibility(inputId) {
+    const input = document.getElementById(inputId);
+    const button = input.nextElementSibling;
+    if (input.type === 'password') {
+        input.type = 'text';
+        button.textContent = '🙈';
+    } else {
+        input.type = 'password';
+        button.textContent = '👁️';
+    }
+}
+
+function generateStrongPassword() {
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    let password = "";
+    for (let i = 0; i < 12; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    const passField = document.getElementById('signupPassword');
+    passField.type = "text";
+    passField.value = password;
+    showToast("Generated a strong password!");
+}
+
+function generateAvatar(name) {
+    const parts = name.trim().split(' ');
+    if (parts.length >= 2) {
+        return parts[0][0].toUpperCase() + parts[1][0].toUpperCase();
+    }
+    return name.slice(0, 2).toUpperCase();
+}
+
+// --- OTP LOGIC ---
+function setupOtpInputs() {
+    const inputs = document.querySelectorAll('.otp-input');
+    inputs.forEach((input, index) => {
+        input.addEventListener('keydown', (e) => {
+            if (e.key >= 0 && e.key <= 9) {
+                inputs[index].value = '';
+                setTimeout(() => {
+                    if(index + 1 < inputs.length) inputs[index + 1].focus()
+                }, 10);
+            } else if (e.key === 'Backspace') {
+                 setTimeout(() => {
+                    if(index - 1 >= 0) inputs[index - 1].focus()
+                }, 10);
+            }
+        });
+    });
+}
+
+function startOtpTimer(timerId, resendBtnId) {
+    clearInterval(otpTimerInterval);
+    const timerEl = document.getElementById(timerId);
+    const resendBtn = document.getElementById(resendBtnId);
+    let timeLeft = 30;
+
+    resendBtn.disabled = true;
+    timerEl.textContent = `(0:${timeLeft})`;
+
+    otpTimerInterval = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = `(0:${timeLeft < 10 ? '0' : ''}${timeLeft})`;
+        if (timeLeft <= 0) {
+            clearInterval(otpTimerInterval);
+            timerEl.textContent = '';
+            resendBtn.disabled = false;
+        }
+    }, 1000);
+
+    resendBtn.onclick = () => {
+        showToast("A new OTP has been sent (simulated).");
+        startOtpTimer(timerId, resendBtnId);
+    };
+}
+
+// --- AUTHENTICATION FLOWS ---
+function handleLoginSubmit(event) {
+    event.preventDefault();
+    let isValid = true;
+    const credential = document.getElementById('loginCredential').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    clearFieldError('loginCredential');
+    clearFieldError('loginPassword');
+
+    if (!credential) {
+        showFieldError('loginCredential', 'Email or phone is required.');
+        isValid = false;
+    } else if (!validateEmail(credential) && !validatePhone(credential)) {
+       showFieldError('loginCredential', 'Please enter a valid email or 10-digit phone number.');
+       isValid = false;
+    }
+    
+    if (!password) {
+        showFieldError('loginPassword', 'Password is required.');
+        isValid = false;
+    }
+    
+    if (!isValid) return;
+
+    const savedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = savedUsers.find(u => (u.email === credential || u.phone === credential) && u.password === password);
+
+    if (user) {
+        currentAuthContext = { flow: 'login', credential, user };
+        document.getElementById('otpLoginDestination').textContent = credential;
+        showAuthView('loginOtpView', 'loginOverlay');
+        startOtpTimer('loginOtpTimer', 'resendLoginOtpBtn');
+    } else {
+        showFieldError('loginPassword', 'Invalid credentials or user not found.');
+    }
+}
+
+function handleSignupSubmit(event) {
+    event.preventDefault();
+    let isValid = true;
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const phone = document.getElementById('signupPhone').value.trim();
+    const password = document.getElementById('signupPassword').value;
+
+    ['signupName', 'signupEmail', 'signupPhone', 'signupPassword'].forEach(clearFieldError);
+
+    if (!name || name.length < 2) {
+        showFieldError('signupName', 'Name must be at least 2 characters.');
+        isValid = false;
+    }
+    if (!validateEmail(email)) {
+        showFieldError('signupEmail', 'Please enter a valid email.');
+        isValid = false;
+    }
+    if (!validatePhone(phone)) {
+        showFieldError('signupPhone', 'Please enter a valid 10-digit phone number.');
+        isValid = false;
+    }
+    if (!validatePassword(password)) {
+        showFieldError('signupPassword', 'Password must be 8+ characters with letters and numbers.');
+        isValid = false;
+    }
+    
+    if(!isValid) return;
+
+    const savedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    if (savedUsers.some(u => u.email === email)) {
+        showFieldError('signupEmail', 'This email is already registered.');
+        return;
+    }
+
+    currentAuthContext = { flow: 'signup', name, email, phone, password };
+    document.getElementById('otpSignupDestination').textContent = email;
+    showAuthView('signupOtpView', 'signupOverlay');
+    startOtpTimer('signupOtpTimer', 'resendSignupOtpBtn');
+}
+
+function handleForgotPasswordSubmit(event) {
+    event.preventDefault();
+    const credential = document.getElementById('resetCredential').value.trim();
+    clearFieldError('resetCredential');
+
+    if (!validateEmail(credential) && !validatePhone(credential)) {
+        showFieldError('resetCredential', 'Please enter a valid email or phone number.');
+        return;
+    }
+    
+    const savedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    if (!savedUsers.some(u => u.email === credential || u.phone === credential)) {
+      showFieldError('resetCredential', 'No account found with this credential.');
+       return;
+    }
+    
+    currentAuthContext = { flow: 'forgotPassword', credential };
+    closeLoginPopup();
+    document.getElementById('resetPasswordOverlay').style.display = 'flex';
+}
+
+function handleOtpSubmit(event, flow) {
+    event.preventDefault();
+    const otpInputs = document.querySelectorAll('.otp-input');
+    const otp = Array.from(otpInputs).map(i => i.value).join('');
+
+    // Using a fixed OTP for demo
+    if (otp !== "1234") { 
+        if (flow === 'login') showFieldError('otpLoginError', 'Invalid OTP. Please try again.');
+        if (flow === 'signup') showFieldError('otpSignupError', 'Invalid OTP. Please try again.');
+        return;
+    }
+    
+    clearInterval(otpTimerInterval);
+    
+    switch (currentAuthContext.flow) {
+        case 'login':
+            loginUser(currentAuthContext.user);
+            break;
+        case 'signup':
+            registerUser(currentAuthContext);
+            break;
+        case 'forgotPassword':
+            closeLoginPopup();
+            showAuthView('resetPasswordView', 'resetPasswordOverlay');
+            break;
+    }
+}
+
+function handleResetPasswordSubmit(event) {
+    event.preventDefault();
+    const newPassword = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+    clearFieldError('newPassword');
+    clearFieldError('confirmNewPassword');
+    
+    if (!validatePassword(newPassword)) {
+        showFieldError('newPassword', 'Password must be 8+ characters with letters and numbers.');
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        showFieldError('confirmNewPassword', 'Passwords do not match.');
+        return;
+    }
+    
+    let savedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const userIndex = savedUsers.findIndex(u => u.email === currentAuthContext.credential || u.phone === currentAuthContext.credential);
+    if(userIndex !== -1) {
+        savedUsers[userIndex].password = newPassword;
+        localStorage.setItem('users', JSON.stringify(savedUsers));
+        
+        showToast('Password reset successfully! Please log in.');
+        closeResetPasswordPopup();
+        openLoginPopup();
+    }
+}
+
+
+function loginUser(user) {
+    currentUser = user;
+    isLoggedIn = true;
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    updateUIAfterLogin();
+    closeLoginPopup();
+    showToast(`Welcome back, ${user.name}!`);
+}
+
+function registerUser({ name, email, phone, password }) {
+    const newUser = {
+        id: Date.now(), name, email, phone, password,
+        joinDate: new Date().toISOString(),
+        avatar: generateAvatar(name)
+    };
+
+    let savedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    savedUsers.push(newUser);
+    localStorage.setItem('users', JSON.stringify(savedUsers));
+
+    loginUser(newUser);
+}
+
+function updateUIAfterLogin() {
+    if (!isLoggedIn || !currentUser) return;
+
+    document.getElementById('loginLink').style.display = 'none';
+    const profileDropdown = document.getElementById('profileDropdown');
+    profileDropdown.style.display = 'block';
+    profileDropdown.classList.add('active');
+
+    const avatarText = currentUser.avatar || generateAvatar(currentUser.name);
+    document.getElementById('profileAvatar').textContent = avatarText;
+    document.getElementById('profileAvatarLarge').textContent = avatarText;
+    document.getElementById('profileName').textContent = currentUser.name;
+    document.getElementById('profileNameDetail').textContent = currentUser.name;
+    document.getElementById('profileEmailDetail').textContent = currentUser.email;
+    document.getElementById('profilePhoneDetail').textContent = currentUser.phone;
+
+}
+
+function logout() {
+    currentUser = null;
+    isLoggedIn = false;
+    localStorage.removeItem('currentUser');
+
+    document.getElementById('loginLink').style.display = 'block';
+    const profileDropdown = document.getElementById('profileDropdown');
+    profileDropdown.style.display = 'none';
+    profileDropdown.classList.remove('active');
+
+    showPage('home');
+    showToast('You have been logged out.');
+}
+
+function loginWithGoogle() {
+    showToast("Redirecting to Google... (simulation)");
+    const demoUser = {
+        id: 'google123',
+        name: 'Google User',
+        email: 'google.user@example.com',
+        phone: '9999988888',
+        avatar: 'GU'
+    };
+    loginUser(demoUser);
+}
+
+function toggleProfileDropdown() {
+    document.getElementById('dropdownMenu').classList.toggle('show');
+}
+
+// --- NEW: List Item Form Logic ---
+function setupListItemForm() {
+    const form = document.getElementById('listItemForm');
+    const imageInput = document.getElementById('itemImage');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageInput.addEventListener('change', () => {
+        const file = imageInput.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+}
+
+function handleListItemSubmit(event) {
+    event.preventDefault();
+    
+    // In a real application, you would handle file upload to a server.
+    // Here, we'll just use the preview image for simulation.
+    const newItem = {
+        id: Date.now(),
+        name: document.getElementById('itemName').value,
+        price: parseInt(document.getElementById('itemPrice').value),
+        desc: document.getElementById('itemDescription').value,
+        img: document.getElementById('imagePreview').src,
+        category: document.getElementById('itemCategory').value
+    };
+
+    // Add the new product to our global list
+    products.push(newItem);
+
+    showToast("Your item has been listed successfully!", "success");
+    
+    // Reset form and hide preview
+    event.target.reset();
+    document.getElementById('imagePreview').style.display = 'none';
+
+    // Go to the category page of the newly added item
+    showPage(newItem.category);
+}
+
+
+// Close dropdown when clicking outside
+document.addEventListener('click', e => {
+    if (!e.target.closest('.profile-dropdown')) {
+        document.getElementById('dropdownMenu').classList.remove('show');
+    }
+});
+</script>
+</body>
+</html>
