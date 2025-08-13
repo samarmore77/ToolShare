@@ -315,7 +315,10 @@
                 ToolsShare
             </a>
 
-            <!-- Search Bar with Location Dropdown -->
+            
+
+            <nav role="navigation" aria-label="Main navigation" id="mainNav">
+                <!-- Search Bar with Location Dropdown -->
             <div class="search-container">
                 <div class="location-dropdown-container">
                     <button id="locationToggleBtn" class="location-toggle-btn" onclick="toggleLocationDropdown()">
@@ -332,12 +335,8 @@
                     </div>
                 </div>
                 <input type="text" id="searchInput" placeholder="Search for tools...">
-                <input type="date" id="pickupDate" title="Pickup Date">
-                <input type="date" id="dropoffDate" title="Drop-off Date">
                 <div id="searchResults"></div>
             </div>
-
-            <nav role="navigation" aria-label="Main navigation" id="mainNav">
                 <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
                 <a href="#" class="nav-link" onclick="showPage('categories')">Categories</a>
                 <a href="#" class="nav-link" onclick="showPage('listItem')">List your Item</a>
@@ -347,6 +346,10 @@
                 </a>
                 <a href="#" class="nav-link" onclick="showPage('myWishlist')">
                     ❤️ Wishlist <span id="wishlistCounter" class="nav-counter">0</span>
+                </a>
+                <a href="#" class="nav-link" onclick="showPage('messages')" style="position: relative;">
+                💬 Messages
+                <span id="messagesCounter" class="messages-counter">0</span>
                 </a>
 
                 <a href="#" id="loginLink" onclick="openLoginPopup()">Login/Sign Up</a>
@@ -370,10 +373,17 @@
         <!-- Home Page -->
         <div class="page active" id="homePage">
             <section class="hero">
+                <iframe class="video-background"
+                    src="https://www.youtube.com/embed/ggno6z9Q9eE?autoplay=1&mute=1&loop=1&playlist=ggno6z9Q9eE&controls=0&modestbranding=1&showinfo=0"
+                    frameborder="0"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen>
+                </iframe>
                 <div class="hero-text">
                     <h1>Earn Smarter, Save Smarter!</h1>
                     <p>Get instant access to thousands of tools and appliances. Rent what you need, when you need it, with hassle-free delivery right to your door.</p>
                 </div>
+                
                 <div class="hero-image">
                     <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1469&q=80" alt="Person working with tools in a workshop" loading="lazy">
                 </div>
@@ -654,6 +664,57 @@
                 </div>
             </div>
         </div>
+        <div class="page" id="messagesPage">
+    <div class="page-container">
+        <div class="page-header">
+            <h1>Messages</h1>
+            <p>Chat with other users about tool rentals and arrangements.</p>
+        </div>
+        
+        <div class="messages-container" id="messagesContainer">
+            <!-- Conversations List -->
+            <div class="conversations-list" id="conversationsList">
+                <!-- Conversations will be populated by JavaScript -->
+            </div>
+            
+            <!-- Chat Area -->
+            <div class="chat-area" id="chatArea">
+                <div class="empty-chat" id="emptyChatState">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+                    </svg>
+                    <h3>Start a Conversation</h3>
+                    <p>Select a conversation from the left or start a new one.</p>
+                </div>
+                
+                <!-- Chat Header (hidden initially) -->
+                <div class="chat-header" id="chatHeader" style="display: none;">
+                    <div class="conversation-avatar" id="chatAvatar">JD</div>
+                    <div>
+                        <div class="conversation-name" id="chatName">John Doe</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary);">Online</div>
+                    </div>
+                </div>
+                
+                <!-- Messages Container (hidden initially) -->
+                <div class="chat-messages" id="chatMessages" style="display: none;"></div>
+                
+                <!-- Chat Input (hidden initially) -->
+                <div class="chat-input" id="chatInput" style="display: none;">
+                    <input type="text" placeholder="Type a message..." id="messageInput">
+                    <button class="send-btn" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. ADD THIS FLOATING BUTTON (optional - for quick access) -->
+<button class="quick-message-btn" onclick="showPage('messages')" title="Messages" style="display: none;" id="quickMessageBtn">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+    </svg>
+</button>
         
         <!-- Checkout Page -->
         <div class="page" id="checkoutPage">
@@ -1191,6 +1252,8 @@ function setupSearch() {
 function createProductHTML(product) {
     const isInWishlist = wishlist.some(item => item.id === product.id);
     return `
+        <div class="product-card" onclick="showProductDetail(${product.id})" style="cursor:pointer;">
+
         <div class="product-actions">
             <button class="product-action-btn ${isInWishlist ? 'active' : ''}" onclick="toggleWishlist(event, ${product.id})" aria-label="Add to Wishlist">
                 <svg viewBox="0 0 24 24"><path d="M12 4.248c-3.148-5.402-12-3.825-12 2.942 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.942z"/></svg>
@@ -1203,6 +1266,222 @@ function createProductHTML(product) {
             <p class="price">₹${product.price}/day</p>
         </div>
         <button class="rent-btn" onclick="addToCart(${product.id})">Add to Cart</button>
+    `;
+}
+function showProductDetail(id) {
+    if (id === 1) {
+        // Store the product ID for the detail page
+        localStorage.setItem('currentProductId', id);
+        
+        // Open the product detail page in a new tab/window
+        // In production, you might want to use the same tab
+        window.open('product-detail.html', '_blank');
+        
+        // Alternative: Same tab navigation
+        // window.location.href = 'product-detail.html';
+    } else {
+        // For other products, show a toast message
+        showToast("Product detail page coming soon!");
+    }
+}
+
+// Handle returning data from product detail page
+window.addEventListener('load', function() {
+    // Check for pending cart item from product detail page
+    const pendingCartItem = localStorage.getItem('pendingCartItem');
+    if (pendingCartItem) {
+        const productData = JSON.parse(pendingCartItem);
+        
+        // Add to cart with the selected duration and price
+        const product = products.find(p => p.id === productData.id);
+        if (product) {
+            // Update product price based on selected duration
+            product.price = productData.price;
+            addToCart(productData.id);
+        }
+        
+        // Clear the pending item
+        localStorage.removeItem('pendingCartItem');
+        
+        // Show confirmation
+        showToast(`${productData.name} added to cart for ${productData.duration} day(s)!`);
+    }
+    
+    // Check for pending rent item
+    const pendingRentItem = localStorage.getItem('pendingRentItem');
+    if (pendingRentItem) {
+        const productData = JSON.parse(pendingRentItem);
+        
+        // Add to cart and go directly to checkout
+        const product = products.find(p => p.id === productData.id);
+        if (product) {
+            product.price = productData.price;
+            addToCart(productData.id);
+            
+            // Auto-proceed to checkout
+            setTimeout(() => {
+                proceedToCheckout();
+            }, 1000);
+        }
+        
+        localStorage.removeItem('pendingRentItem');
+        showToast(`Proceeding to checkout for ${productData.name}...`);
+    }
+    
+    // Check for pending wishlist action
+    const pendingWishlistAction = localStorage.getItem('pendingWishlistAction');
+    if (pendingWishlistAction) {
+        const actionData = JSON.parse(pendingWishlistAction);
+        const product = products.find(p => p.id === actionData.productId);
+        
+        if (product) {
+            if (actionData.action === 'add') {
+                if (!wishlist.some(item => item.id === product.id)) {
+                    wishlist.push(product);
+                    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                    localStorage.setItem('wishlist_product_' + product.id, 'true');
+                }
+            } else if (actionData.action === 'remove') {
+                wishlist = wishlist.filter(item => item.id !== product.id);
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                localStorage.removeItem('wishlist_product_' + product.id);
+            }
+            updateNavCounters();
+        }
+        
+        localStorage.removeItem('pendingWishlistAction');
+    }
+    
+    // Check for pending review
+    const pendingReview = localStorage.getItem('pendingReview');
+    if (pendingReview) {
+        const reviewData = JSON.parse(pendingReview);
+        
+        // Store the review (in a real app, this would be sent to your server)
+        let reviews = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+        if (!reviews[reviewData.productId]) {
+            reviews[reviewData.productId] = [];
+        }
+        reviews[reviewData.productId].push(reviewData);
+        localStorage.setItem('product_reviews', JSON.stringify(reviews));
+        
+        localStorage.removeItem('pendingReview');
+        showToast('Thank you for your review!');
+    }
+});
+
+// Handle URL parameters for direct actions
+window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const action = urlParams.get('action');
+    const productId = urlParams.get('productId');
+    const duration = urlParams.get('duration');
+    
+    if (action && productId) {
+        const product = products.find(p => p.id === parseInt(productId));
+        if (product) {
+            switch (action) {
+                case 'addToCart':
+                    if (duration) {
+                        // Update price based on duration (simplified pricing logic)
+                        const durationPrices = {
+                            '1': product.price,
+                            '3': product.price * 2.7, // slight discount
+                            '7': product.price * 6,   // 10% discount
+                            '30': product.price * 24  // 20% discount
+                        };
+                        product.price = durationPrices[duration] || product.price;
+                    }
+                    addToCart(parseInt(productId));
+                    showToast(`${product.name} added to cart!`);
+                    break;
+                    
+                case 'rentNow':
+                    if (duration) {
+                        const durationPrices = {
+                            '1': product.price,
+                            '3': product.price * 2.7,
+                            '7': product.price * 6,
+                            '30': product.price * 24
+                        };
+                        product.price = durationPrices[duration] || product.price;
+                    }
+                    addToCart(parseInt(productId));
+                    setTimeout(() => {
+                        proceedToCheckout();
+                    }, 1000);
+                    break;
+            }
+        }
+        
+        // Clean up URL
+        const cleanUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+    }
+});
+
+// Enhanced addToCart function to handle duration-based pricing
+function addToCartWithDuration(productId, duration = 1, customPrice = null) {
+    const productToAdd = products.find(p => p.id === productId);
+    if (!productToAdd) return;
+
+    // Create a copy of the product with duration-specific pricing
+    const productCopy = { ...productToAdd };
+    
+    if (customPrice) {
+        productCopy.price = customPrice;
+    } else {
+        // Apply duration-based pricing
+        const durationMultipliers = {
+            1: 1,
+            3: 2.7,   // 10% discount
+            7: 6,     // ~15% discount
+            30: 24    // 20% discount
+        };
+        productCopy.price = Math.round(productToAdd.price * (durationMultipliers[duration] || 1));
+    }
+    
+    productCopy.rentalDuration = duration;
+    
+    const cartItem = cart.find(item => item.product.id === productId && item.product.rentalDuration === duration);
+
+    if (cartItem) {
+        cartItem.quantity++;
+        showToast(`${productToAdd.name} quantity updated in cart.`);
+    } else {
+        cart.push({ product: productCopy, quantity: 1 });
+        showToast(`${productToAdd.name} added to cart for ${duration} day(s)!`);
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateNavCounters();
+    
+    if (document.getElementById('myCartPage').classList.contains('active')) {
+        loadCart();
+    }
+}
+
+// Update the existing createProductHTML function to include a "View Details" button
+function createProductHTML(product) {
+    const isInWishlist = wishlist.some(item => item.id === product.id);
+    return `
+        <div class="product-card">
+            <div class="product-actions">
+                <button class="product-action-btn ${isInWishlist ? 'active' : ''}" onclick="toggleWishlist(event, ${product.id})" aria-label="Add to Wishlist">
+                    <svg viewBox="0 0 24 24"><path d="M12 4.248c-3.148-5.402-12-3.825-12 2.942 0 4.661 5.571 9.427 12 15.808 6.43-6.381 12-11.147 12-15.808 0-6.792-8.875-8.306-12-2.942z"/></svg>
+                </button>
+            </div>
+            <img src="${product.img}" alt="${product.name}" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x180/1f1f1f/ffffff?text=Image+Not+Found';">
+            <div class="product-content">
+                <p style="font-weight: 600; margin: 10px 0 5px 0;">${product.name}</p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0 0 10px 0;">${product.desc}</p>
+                <p class="price">₹${product.price}/day</p>
+            </div>
+            <div style="display: flex; gap: 10px; padding: 0 15px 15px;">
+                <button class="rent-btn" style="flex: 1;" onclick="addToCart(${product.id})">Add to Cart</button>
+                <button class="btn btn-secondary" style="flex: 1; padding: 8px 12px; font-size: 12px;" onclick="showProductDetail(${product.id})">View Details</button>
+            </div>
+        </div>
     `;
 }
 
@@ -1938,7 +2217,271 @@ function handleListItemSubmit(event) {
     // Go to the category page of the newly added item
     showPage(newItem.category);
 }
+let activeConversationId = null;
+let unreadMessages = 0;
 
+// Initialize messaging system
+function initializeMessaging() {
+    // Load conversations from localStorage
+    const savedConversations = localStorage.getItem('conversations');
+    if (savedConversations) {
+        conversations = JSON.parse(savedConversations);
+    } else {
+        // Create some demo conversations
+        conversations = [
+            {
+                id: 1,
+                user: { name: 'Sarah Wilson', avatar: 'SW' },
+                messages: [
+                    { id: 1, text: 'Hi! Is the power drill still available?', sent: false, timestamp: new Date(Date.now() - 3600000).toISOString() },
+                    { id: 2, text: 'Yes, it is! When do you need it?', sent: true, timestamp: new Date(Date.now() - 3300000).toISOString() },
+                    { id: 3, text: 'This weekend would be perfect. Can we arrange pickup?', sent: false, timestamp: new Date(Date.now() - 1800000).toISOString() }
+                ],
+                unread: 1,
+                lastMessage: 'This weekend would be perfect. Can we arrange pickup?',
+                lastMessageTime: new Date(Date.now() - 1800000).toISOString()
+            },
+            {
+                id: 2,
+                user: { name: 'Mike Chen', avatar: 'MC' },
+                messages: [
+                    { id: 1, text: 'Thanks for renting the projector! Everything worked perfectly.', sent: false, timestamp: new Date(Date.now() - 7200000).toISOString() },
+                    { id: 2, text: 'Glad to hear that! Feel free to rent again anytime.', sent: true, timestamp: new Date(Date.now() - 7000000).toISOString() }
+                ],
+                unread: 0,
+                lastMessage: 'Glad to hear that! Feel free to rent again anytime.',
+                lastMessageTime: new Date(Date.now() - 7000000).toISOString()
+            }
+        ];
+        localStorage.setItem('conversations', JSON.stringify(conversations));
+    }
+    
+    updateMessagesCounter();
+    loadConversationsList();
+}
+
+// Load conversations list
+function loadConversationsList() {
+    const conversationsList = document.getElementById('conversationsList');
+    if (!conversationsList) return;
+    
+    conversationsList.innerHTML = '';
+    
+    conversations.forEach(conversation => {
+        const conversationItem = document.createElement('div');
+        conversationItem.className = `conversation-item ${conversation.unread > 0 ? 'unread' : ''}`;
+        conversationItem.onclick = () => openConversation(conversation.id);
+        
+        const timeFormatted = formatMessageTime(conversation.lastMessageTime);
+        
+        conversationItem.innerHTML = `
+            <div class="conversation-time">${timeFormatted}</div>
+            <div class="conversation-avatar">${conversation.user.avatar}</div>
+            <div class="conversation-name">${conversation.user.name}</div>
+            <div class="conversation-preview">${conversation.lastMessage}</div>
+        `;
+        
+        conversationsList.appendChild(conversationItem);
+    });
+}
+
+// Open a conversation
+function openConversation(conversationId) {
+    activeConversationId = conversationId;
+    const conversation = conversations.find(c => c.id === conversationId);
+    if (!conversation) return;
+    
+    // Mark as read
+    conversation.unread = 0;
+    localStorage.setItem('conversations', JSON.stringify(conversations));
+    updateMessagesCounter();
+    loadConversationsList();
+    
+    // Update active state
+    document.querySelectorAll('.conversation-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
+    
+    // Show chat interface
+    document.getElementById('emptyChatState').style.display = 'none';
+    document.getElementById('chatHeader').style.display = 'flex';
+    document.getElementById('chatMessages').style.display = 'flex';
+    document.getElementById('chatInput').style.display = 'flex';
+    
+    // Update chat header
+    document.getElementById('chatAvatar').textContent = conversation.user.avatar;
+    document.getElementById('chatName').textContent = conversation.user.name;
+    
+    // Load messages
+    loadMessages(conversation);
+    
+    // Focus message input
+    document.getElementById('messageInput').focus();
+}
+
+// Load messages in chat area
+function loadMessages(conversation) {
+    const chatMessages = document.getElementById('chatMessages');
+    chatMessages.innerHTML = '';
+    
+    conversation.messages.forEach(message => {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${message.sent ? 'sent' : 'received'}`;
+        
+        const timeFormatted = formatMessageTime(message.timestamp);
+        
+        messageDiv.innerHTML = `
+            <div>${message.text}</div>
+            <div class="message-time">${timeFormatted}</div>
+        `;
+        
+        chatMessages.appendChild(messageDiv);
+    });
+    
+    // Scroll to bottom
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+// Send a message
+function sendMessage() {
+    const messageInput = document.getElementById('messageInput');
+    const messageText = messageInput.value.trim();
+    
+    if (!messageText || !activeConversationId) return;
+    
+    const conversation = conversations.find(c => c.id === activeConversationId);
+    if (!conversation) return;
+    
+    // Create new message
+    const newMessage = {
+        id: Date.now(),
+        text: messageText,
+        sent: true,
+        timestamp: new Date().toISOString()
+    };
+    
+    // Add to conversation
+    conversation.messages.push(newMessage);
+    conversation.lastMessage = messageText;
+    conversation.lastMessageTime = newMessage.timestamp;
+    
+    // Save to localStorage
+    localStorage.setItem('conversations', JSON.stringify(conversations));
+    
+    // Update UI
+    loadMessages(conversation);
+    loadConversationsList();
+    
+    // Clear input
+    messageInput.value = '';
+    
+    // Simulate a response (in real app, this would be from another user)
+    setTimeout(() => {
+        simulateResponse(conversation);
+    }, 2000);
+    
+    showToast('Message sent!');
+}
+
+// Simulate incoming message (for demo purposes)
+function simulateResponse(conversation) {
+    const lastUserMessage = conversation.messages[conversation.messages.length - 1].text.toLowerCase();
+    let botReply = "Sorry, I didn't understand that.";
+
+    if (lastUserMessage.includes("hi")||
+        lastUserMessage.includes("hello")||
+        lastUserMessage.includes("namaste")) {
+        const greetings = ["Hello", "Hi", "Namaste kaise hai aap"];
+        botReply = greetings[Math.floor(Math.random() * greetings.length)];
+    } 
+    else if (lastUserMessage.includes("price")) {
+        const prices = ["It's ₹100/day", "₹150 for two days", "₹500/week"];
+        botReply = prices[Math.floor(Math.random() * prices.length)];
+    } 
+    else if (lastUserMessage.includes("location")) {
+        const locations = ["Come to this shop", "Find us at Main Street, Shop No. 5"];
+        botReply = locations[Math.floor(Math.random() * locations.length)];
+    }
+
+    const responseMessage = {
+        id: Date.now(),
+        text: botReply,
+        sent: false,
+        timestamp: new Date().toISOString()
+    };
+
+    conversation.messages.push(responseMessage);
+    conversation.lastMessage = responseMessage.text;
+    conversation.lastMessageTime = responseMessage.timestamp;
+    conversation.unread = activeConversationId === conversation.id ? 0 : 1;
+
+    localStorage.setItem('conversations', JSON.stringify(conversations));
+
+    if (activeConversationId === conversation.id) {
+        loadMessages(conversation);
+    }
+
+    updateMessagesCounter();
+    loadConversationsList();
+}
+
+// Format message time
+function formatMessageTime(timestamp) {
+    const messageDate = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now - messageDate;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+    
+    if (diffMins < 1) return 'Just now';
+    if (diffMins < 60) return `${diffMins}m ago`;
+    if (diffHours < 24) return `${diffHours}h ago`;
+    if (diffDays < 7) return `${diffDays}d ago`;
+    
+    return messageDate.toLocaleDateString();
+}
+
+// Update messages counter
+function updateMessagesCounter() {
+    unreadMessages = conversations.reduce((total, conv) => total + conv.unread, 0);
+    const counter = document.getElementById('messagesCounter');
+    
+    if (counter) {
+        counter.textContent = unreadMessages;
+        if (unreadMessages > 0) {
+            counter.classList.add('visible');
+        } else {
+            counter.classList.remove('visible');
+        }
+    }
+    
+    // Show/hide quick message button based on unread messages
+    const quickBtn = document.getElementById('quickMessageBtn');
+    if (quickBtn) {
+        quickBtn.style.display = unreadMessages > 0 ? 'flex' : 'none';
+    }
+}
+
+// Handle message input keyboard events
+function setupMessageInput() {
+    const messageInput = document.getElementById('messageInput');
+    if (messageInput) {
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    }
+}
+
+// Initialize messaging when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    initializeMessaging();
+    setupMessageInput();
+});
 
 // Close dropdown when clicking outside
 document.addEventListener('click', e => {
