@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidden Faculty Page - ToolsShare Premium</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --primary-orange: #ff9900;
+            --secondary-orange: #ff6600;
+            --accent-orange: #ffcc33;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: rgba(255, 255, 255, 0.02);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --border-color: rgba(255, 153, 0, 0.1);
+            --hover-bg: rgba(255, 153, 0, 0.05);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --shadow-primary: 0 8px 32px rgba(0, 0, 0, 0.4);
+            --shadow-orange: 0 8px 32px rgba(255, 153, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            font-weight: 400;
+        }
+
+        /* Enhanced animated background with mesh gradient */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 153, 0, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 20%, rgba(255, 102, 0, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 40% 40%, rgba(255, 204, 51, 0.04) 0%, transparent 40%),
+                linear-gradient(135deg, rgba(255, 153, 0, 0.02) 0%, rgba(0, 0, 0, 0.8) 100%);
+            animation: meshShift 25s ease-in-out infinite;
+        }
+
+        .background-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                conic-gradient(from 0deg at 30% 70%, transparent 0deg, rgba(255, 153, 0, 0.03) 60deg, transparent 120deg),
+                conic-gradient(from 180deg at 70% 30%, transparent 0deg, rgba(255, 102, 0, 0.02) 90deg, transparent 180deg);
+            animation: conicRotate 30s linear infinite;
+        }
+
+        @keyframes meshShift {
+            0%, 100% { 
+                opacity: 0.3; 
+                transform: scale(1) rotate(0deg);
+                filter: blur(0px);
+            }
+            33% { 
+                opacity: 0.5; 
+                transform: scale(1.05) rotate(1deg);
+                filter: blur(1px);
+            }
+            66% { 
+                opacity: 0.4; 
+                transform: scale(0.98) rotate(-0.5deg);
+                filter: blur(0.5px);
+            }
+        }
+
+        @keyframes conicRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced floating particles with multiple layers */
+        .particles {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .particle-small {
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 153, 0, 0.4);
+            box-shadow: 0 0 4px rgba(255, 153, 0, 0.5);
+            animation: floatSmall 20s infinite linear;
+        }
+
+        .particle-medium {
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 204, 51, 0.3);
+            box-shadow: 0 0 6px rgba(255, 204, 51, 0.4);
+            animation: floatMedium 25s infinite linear;
+        }
+
+        .particle-large {
+            width: 6px;
+            height: 6px;
+            background: rgba(255, 102, 0, 0.2);
+            box-shadow: 0 0 8px rgba(255, 102, 0, 0.3);
+            animation: floatLarge 30s infinite linear;
+        }
+
+        @keyframes floatSmall {
+            0% { transform: translateY(100vh) translateX(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes floatMedium {
+            0% { transform: translateY(100vh) translateX(0px) rotate(0deg) scale(0.5); opacity: 0; }
+            15% { opacity: 1; transform: translateY(85vh) translateX(20px) rotate(60deg) scale(1); }
+            85% { opacity: 1; }
+            100% { transform: translateY(-10vh) translateX(-50px) rotate(360deg) scale(0.5); opacity: 0; }
+        }
+
+        @keyframes floatLarge {
+            0% { transform: translateY(100vh) translateX(0px) rotate(0deg) scale(0.3); opacity: 0; }
+            20% { opacity: 0.8; transform: translateY(80vh) translateX(-30px) rotate(90deg) scale(1); }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(80px) rotate(270deg) scale(0.3); opacity: 0; }
+        }
+
+        /* Enhanced header with glassmorphism */
+        .header {
+            position: relative;
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, 
+                rgba(255, 153, 0, 0.08) 0%, 
+                rgba(255, 102, 0, 0.04) 25%,
+                rgba(0, 0, 0, 0.6) 70%,
+                rgba(0, 0, 0, 0.9) 100%
+            );
+            backdrop-filter: blur(30px) saturate(1.2);
+            border-bottom: 1px solid rgba(255, 153, 0, 0.15);
+            border-top: 1px solid rgba(255, 153, 0, 0.08);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--primary-orange) 20%, 
+                var(--accent-orange) 50%,
+                var(--secondary-orange) 80%,
+                transparent
+            );
+            animation: headerGlow 4s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-orange), transparent);
+            box-shadow: 0 0 10px var(--primary-orange);
+        }
+
+        @keyframes headerGlow {
+            0%, 100% { 
+                opacity: 0.4; 
+                transform: scaleX(0.8);
+            }
+            50% { 
+                opacity: 0.8; 
+                transform: scaleX(1.2);
+            }
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, 
+                var(--primary-orange) 0%,
+                var(--accent-orange) 30%,
+                var(--secondary-orange) 70%,
+                var(--primary-orange) 100%
+            );
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            animation: titleShimmer 6s ease-in-out infinite, titleFloat 4s ease-in-out infinite;
+            text-shadow: 0 0 20px rgba(255, 153, 0, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        @keyframes titleShimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { 
+                transform: translateY(0px) scale(1); 
+                filter: brightness(1) drop-shadow(0 0 8px rgba(255, 153, 0, 0.2));
+            }
+            50% { 
+                transform: translateY(-5px) scale(1.01); 
+                filter: brightness(1.1) drop-shadow(0 5px 15px rgba(255, 153, 0, 0.25));
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease-out 0.8s forwards;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            letter-spacing: 0.3px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Enhanced container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Enhanced sections with advanced glassmorphism */
+        .section {
+            margin-bottom: 5rem;
+            padding: 3.5rem;
+            background: linear-gradient(145deg,
+                var(--glass-bg) 0%,
+                rgba(255, 255, 255, 0.01) 100%
+            );
+            backdrop-filter: blur(25px) saturate(1.1);
+            border-radius: 28px;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 153, 0, 0.05) 20%,
+                rgba(255, 204, 51, 0.08) 50%,
+                rgba(255, 102, 0, 0.05) 80%,
+                transparent
+            );
+            transition: left 1s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                transparent, 
+                var(--primary-orange) 50%,
+                transparent
+            );
+            border-radius: 30px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: -1;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .section:hover::before {
+            left: 100%;
+        }
+
+        .section:hover::after {
+            opacity: 0.2;
+        }
+
+        .section:hover {
+            transform: translateY(-12px) scale(1.01);
+            box-shadow: 
+                var(--shadow-orange),
+                0 25px 80px rgba(255, 153, 0, 0.06);
+            border-color: rgba(255, 153, 0, 0.3);
+            background: linear-gradient(145deg,
+                rgba(255, 153, 0, 0.06) 0%,
+                var(--glass-bg) 100%
+            );
+        }
+
+        .section > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Staggered animation delays */
+        .section:nth-child(1) { animation: sectionReveal 1s ease-out 0.3s forwards; }
+        .section:nth-child(2) { animation: sectionReveal 1s ease-out 0.6s forwards; }
+        .section:nth-child(3) { animation: sectionReveal 1s ease-out 0.9s forwards; }
+        .section:nth-child(4) { animation: sectionReveal 1s ease-out 1.2s forwards; }
+        .section:nth-child(5) { animation: sectionReveal 1s ease-out 1.5s forwards; }
+
+        @keyframes sectionReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Enhanced section titles */
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--primary-orange);
+            margin-bottom: 2.5rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.02em;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--primary-orange), 
+                var(--accent-orange),
+                var(--secondary-orange)
+            );
+            border-radius: 2px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(255, 153, 0, 0.25);
+        }
+
+        .section:hover .section-title::after {
+            width: 100%;
+        }
+
+        /* Enhanced team grid with better spacing */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            padding: 2rem 0;
+        }
+
+        .team-card {
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.06) 0%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            backdrop-filter: blur(20px) saturate(1.2);
+            border-radius: 24px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 153, 0, 0.1), 
+                transparent
+            );
+            transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .team-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(135deg, 
+                var(--primary-orange), 
+                var(--accent-orange),
+                var(--secondary-orange)
+            );
+            border-radius: 25px;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: -1;
+        }
+
+        .team-card:hover::before {
+            left: auto;
+        }
+
+        .team-card:hover::after {
+            opacity: 0.4;
+        }
+
+        .team-card:hover {
+            transform: translateY(-16px) scale(1.03) rotateY(5deg);
+            box-shadow: 
+                0 30px 80px rgba(255, 153, 0, 0.15),
+                0 0 0 1px rgba(255, 153, 0, 0.4);
+            border-color: rgba(255, 153, 0, 0.5);
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.12) 0%,
+                rgba(255, 255, 255, 0.04) 100%
+            );
+        }
+
+        .team-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-card .image-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .team-card img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--primary-orange);
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 8px 32px rgba(255, 153, 0, 0.2),
+                0 0 0 0 rgba(255, 153, 0, 0.3);
+        }
+
+        .team-card .img-primary {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        .team-card .img-hover {
+            opacity: 0;
+            z-index: 1;
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .team-card h3:hover ~ .image-container .img-primary {
+            opacity: 0;
+            transform: scale(0.9) rotate(-5deg);
+        }
+
+        .team-card h3:hover ~ .image-container .img-hover {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .team-card:hover img {
+            box-shadow: 
+                0 20px 60px rgba(255, 153, 0, 0.3),
+                0 0 0 8px rgba(255, 153, 0, 0.15);
+            border-color: var(--accent-orange);
+        }
+
+        .team-card:hover .img-primary {
+            transform: scale(1.15) rotate(8deg);
+        }
+
+        .team-card:hover .img-hover {
+            transform: scale(1.25) rotate(13deg);
+        }
+
+        /* Enhanced name hover effect */
+        .team-card h3 {
+            color: var(--primary-orange);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1.5rem 0 0.8rem;
+            transition: all 0.4s ease;
+            letter-spacing: -0.01em;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .team-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--secondary-orange), var(--accent-orange));
+            border-radius: 1px;
+            transition: width 0.3s ease;
+        }
+
+        .team-card h3:hover::after {
+            width: 100%;
+        }
+
+        .team-card:hover h3 {
+            color: #ffffff;
+            transform: translateY(-3px) scale(1.05);
+            text-shadow: 0 4px 15px rgba(255, 204, 51, 0.3);
+        }
+
+        .roll {
+            color: #ccc;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .roll {
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .role {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover .role {
+            color: var(--text-secondary);
+            transform: translateY(-1px);
+        }
+
+        /* Enhanced interactive lists */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 1.5rem;
+            padding: 1.5rem 2rem;
+            background: rgba(255, 153, 0, 0.04);
+            border-radius: 16px;
+            border-left: 4px solid var(--primary-orange);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        ul li::before {
+            content: '→';
+            position: absolute;
+            left: 1.5rem;
+            color: var(--primary-orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            transform: translateX(-40px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        ul li::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                rgba(255, 153, 0, 0.08), 
+                transparent
+            );
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        ul li:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            transform: translateX(15px) scale(1.02);
+            box-shadow: 
+                0 10px 40px rgba(255, 153, 0, 0.12),
+                -5px 0 20px rgba(255, 153, 0, 0.06);
+            border-left-color: var(--accent-orange);
+            padding-left: 3.5rem;
+            border-left-width: 5px;
+        }
+
+        ul li:hover::before {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        ul li:hover::after {
+            opacity: 1;
+        }
+
+        /* Enhanced table styles */
+        .table-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, 
+                var(--primary-orange) 0%,
+                var(--secondary-orange) 100%
+            );
+            color: white;
+            padding: 2rem 1.5rem;
+            font-weight: 700;
+            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.3px;
+        }
+
+        td {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            background: transparent;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            transform: scale(1.01);
+            box-shadow: 0 4px 20px rgba(255, 153, 0, 0.08);
+        }
+
+        tr:hover td:first-child {
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        /* Enhanced dropdowns */
+        select {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            color: #fff;
+            border: 2px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        select:hover {
+            border-color: var(--primary-orange);
+            box-shadow: 0 8px 25px rgba(255, 153, 0, 0.15);
+            transform: translateY(-2px);
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            color: #ffffff;
+        }
+
+        select:focus {
+            border-color: var(--accent-orange);
+            box-shadow: 
+                0 0 30px rgba(255, 153, 0, 0.25),
+                0 8px 25px rgba(255, 153, 0, 0.15);
+            transform: translateY(-2px) scale(1.02);
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            color: #ffffff;
+        }
+
+        /* Status-specific styling */
+        select.status-done {
+            border-color: #00ff88;
+            box-shadow: 0 4px 20px rgba(0, 255, 136, 0.2);
+        }
+
+        select.status-done:hover {
+            background: linear-gradient(145deg, #1a2f1a, #0f2f0f);
+            color: #ffffff;
+        }
+
+        select.status-pending {
+            border-color: #ffaa00;
+            box-shadow: 0 4px 20px rgba(255, 170, 0, 0.2);
+        }
+
+        select.status-pending:hover {
+            background: linear-gradient(145deg, #2f2a1a, #2f1f0f);
+            color: #ffffff;
+        }
+
+        select.status-na {
+            border-color: #666;
+            box-shadow: 0 4px 20px rgba(102, 102, 102, 0.15);
+        }
+
+        select.status-na:hover {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            color: #ffffff;
+        }
+
+        /* Enhanced requirements grid */
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .requirement-category {
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.04) 0%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .requirement-category::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                from 0deg, 
+                transparent, 
+                rgba(255, 153, 0, 0.03), 
+                transparent
+            );
+            animation: categoryRotate 20s linear infinite;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .requirement-category:hover::before {
+            opacity: 1;
+        }
+
+        .requirement-category:hover {
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.04) 100%
+            );
+            border-color: rgba(255, 153, 0, 0.3);
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(255, 153, 0, 0.1);
+        }
+
+        @keyframes categoryRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .requirement-category > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .requirement-category h2 {
+            color: var(--primary-orange);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            letter-spacing: -0.01em;
+            transition: all 0.3s ease;
+        }
+
+        .requirement-category:hover h2 {
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(255, 153, 0, 0.08);
+            backdrop-filter: blur(5px);
+        }
+
+        .task-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            transform: translateX(12px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(255, 153, 0, 0.12);
+            border-color: rgba(255, 153, 0, 0.25);
+        }
+
+        .task-text {
+            flex: 1;
+            margin-right: 1.5rem;
+            font-weight: 400;
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover .task-text {
+            color: #ffffff;
+        }
+
+        .status-dropdown {
+            min-width: 160px;
+        }
+
+        strong {
+            color: var(--accent-orange);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover strong {
+            color: #ffffff;
+        }
+
+        /* Enhanced responsive design */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.8rem;
+            }
+            
+            .section {
+                padding: 2.5rem 1.8rem;
+                margin-bottom: 3rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .requirements-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .task-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+            
+            .status-dropdown {
+                width: 100%;
+            }
+            
+            .container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 3rem 1rem;
+            }
+            
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .team-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .team-card img {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        /* Scroll behavior enhancements */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: fadeInLeft 0.8s ease-out forwards;
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            animation: fadeInRight 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus styles for better accessibility */
+        *:focus {
+            outline: 2px solid var(--primary-orange);
+            outline-offset: 2px;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary-orange), var(--secondary-orange));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--accent-orange), var(--primary-orange));
+        }
+
+        /* Selection color */
+        ::selection {
+            background: rgba(255, 153, 0, 0.3);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="lock-screen" style="position:fixed;top:0;left:0;width:100%;height:100%;
+        background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;
+        z-index:9999;color:white;font-family:sans-serif;">
+        <h2 style="margin-bottom:20px;color:#ff9900;">Enter Access Code</h2>
+        <input id="access-input" type="password" placeholder="Enter code"
+            style="padding:10px 15px;border-radius:8px;border:1px solid #ff9900;background:#111;color:white;">
+        <button onclick="checkCode()" 
+            style="margin-top:15px;padding:10px 20px;border:none;border-radius:8px;
+            background:#ff9900;color:black;font-weight:bold;cursor:pointer;">
+            Unlock
+        </button>
+        <p id="error" style="color:red;margin-top:10px;display:none;">Incorrect code!</p>
+    </div>
+    <div class="background-animation"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="header">
+        <h1 class="main-title">Hidden Faculty Page</h1>
+        <p class="subtitle">This page is accessible only to faculty for project review purposes.</p>
+    </div>
+
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">Team Information (A_06)</h2>
+            <div class="team-grid">
+                <div class="team-card fade-in-up">
+                    <h3>Palak Bhaskar</h3>
+                    <div class="image-container">
+                        <img src="C:\Users\Samar More\Downloads\IPM\Web Based Development\final website\fromal P.jpg" alt="Palak Bhaskar" class="img-primary">
+                        <img src="C:\Users\Samar More\Downloads\IPM\Web Based Development\final website\informal P.jpg" alt="Palak Bhaskar - Alternative" class="img-hover">
+                    </div>
+                    <p class="roll">IPM05047</p>
+                    <p class="role">UI/UX Design, Color Scheme Selection</p>
+                </div>
+                <div class="team-card fade-in-up">
+                    <h3>Srishti Deepak</h3>
+                    <div class="image-container">
+                        <img src="C:\Users\Samar More\Downloads\IPM\Web Based Development\final website\formal S.jpg" alt="Srishti Deepak" class="img-primary">
+                        <img src="C:\Users\Samar More\Downloads\IPM\Web Based Development\final website\informal S.jpg" alt="Srishti Deepak - Alternative" class="img-hover">
+                    </div>
+                    <p class="roll">IPM05057</p>
+                    <p class="role">Research, Navigation Flow Logic</p>
+                </div>
+                <div class="team-card fade-in-up">
+                    <h3>Manjot Kaur</h3>
+                    <div class="image-container">
+                        <img src="C:\Users\Samar More\Downloads\IPM\Web Based Development\final website\formal m.jpg" alt="Manjot Kaur" class="img-primary">
+                        <img src="C:\Users\Samar More\Downloads\IPM\Web Based Development\final website\informal M.jpg" alt="Manjot Kaur - Alternative" class="img-hover">
+                    </div>
+                    <p class="roll">IPM05041</p>
+                    <p class="role">Content Writing, Feature Justification</p>
+                </div>
+                <div class="team-card fade-in-up">
+                    <h3>Devadevan R Saji</h3>
+                    <div class="image-container">
+                        <img src="C:\Users\Samar More\Downloads\IPM\Web Based Development\final website\formal D.jpg" alt="Devadevan R Saji" class="img-primary">
+                        <img src="C:\Users\Samar More\Downloads\IPM\Web Based Development\final website\informal D.jpg" alt="Devadevan R Saji - Alternative" class="img-hover">
+                    </div>
+                    <p class="roll">IPM05021</p>
+                    <p class="role">HTML/CSS/JavaScript Development</p>
+                </div>
+                <div class="team-card fade-in-up">
+                    <h3>Samar More</h3>
+                    <div class="image-container">
+                        <img src="https://drive.google.com/file/d/1hZ6XvnMRRlS4PxGZCyDE0mKXJnqGbE0K/view" alt="Samar More" class="img-primary">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Image_created_with_a_mobile_phone.png" alt="Samar More - Alternative" class="img-hover">
+                    </div>
+                    <p class="roll">IPM05054</p>
+                    <p class="role">Functionality Testing, Search Bar Integration</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Main Idea</h2>
+            <p style="font-size: 1.25rem; margin-bottom: 2.5rem; line-height: 1.8; color: var(--text-secondary);">The website connects tool owners and renters through a secure, user-friendly rental platform.</p>
+            <ul>
+                <li class="fade-in-left"><strong>For Lenders:</strong> Monetize idle tools by renting them out.</li>
+                <li class="fade-in-left"><strong>For Borrowers:</strong> Affordable, short-term access to tools without high purchase costs.</li>
+                <li class="fade-in-left"><strong>Convenience:</strong> Doorstep pickup and delivery handled by logistics partners.</li>
+                <li class="fade-in-left"><strong>Trust:</strong> Escrow payment system ensures safe, smooth transactions for both parties.</li>
+                <li class="fade-in-left">Both lender and borrower act as prosumers, sharing resources efficiently.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Consumer Profile</h2>
+            <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary);">We are catering to two primary customer segments. The first are renters - individuals who need specific tools or products for short-term use, such as DIY enthusiasts, students, small business owners, or event organizers, and who prefer renting over buying to save money and reduce clutter. The second are lenders - individuals or households who own tools, equipment, or other useful items that often remain idle, and who want to earn extra income by renting them out. By connecting these two groups, our platform enables cost savings for renters, creates an additional income stream for lenders, and promotes better resource utilization within the community.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Design Philosophy</h2>
+            <ul>
+                <li class="fade-in-right"><strong>Color Scheme:</strong> Black background for professionalism, strength, and focus; off-white text for readability; orange action buttons for visibility and urgency.</li>
+                <li class="fade-in-right"><strong>Industrial Inspiration:</strong> Black + off-white mimic technical blueprints, aligning with the tool-rental theme.</li>
+                <li class="fade-in-right"><strong>Readability:</strong> Off-white avoids glare, making prolonged browsing comfortable.</li>
+                <li class="fade-in-right"><strong>Emotional Trigger:</strong> Orange evokes energy, affordability, and urgency without the aggressiveness of red.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Navigation Order & Justification</h2>
+            <ul>
+                <li><strong>Home:</strong> Anchor point for quick reset. Always first so users can restart their browsing journey without confusion.</li>
+                <li><strong>Categories:</strong> Direct access to tool discovery, reducing clicks. Placed early to encourage exploration and product finding.</li>
+                <li><strong>About Us:</strong> Trust-building after exploration. Once users know what's available, they're more likely to learn about the brand.</li>
+                <li><strong>My Cart:</strong> Relevant only after tool selection. Ensures users can quickly access their ongoing shopping process.</li>
+                <li><strong>Wishlist:</strong> Useful for later, less urgent than the cart. Positioned after the cart since it's secondary to immediate buying.</li>
+                <li><strong>List Your Items:</strong> Encourages user contribution to the platform. Placed here to prompt sellers once they've seen the platform's offerings.</li>
+                <li><strong>Login / Sign Up:</strong> Avoids premature account pressure. Encourages relaxed exploration before committing to an account.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Search Bar Placement Rationale</h2>
+            <ul>
+                <li><strong>User Familiarity:</strong> Users expect it in the top-right, similar to Amazon or eBay.</li>
+                <li><strong>Immediate Use:</strong> Perfect for users with a specific item in mind.</li>
+                <li><strong>Focus Preservation:</strong> Keeps hero message central while giving quick access to search.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Customer Testimonial Placement</h2>
+            <p style="font-size: 1.15rem; margin-bottom: 1.8rem; color: var(--text-secondary);">Testimonials will be included to build trust and showcase satisfaction. They will be placed:</p>
+            <ul>
+                <li>On the <strong>homepage below the Featured Tools</strong> section, ensuring users first see our offerings.</li>
+                <li>Additionally, on a <strong>dedicated Reviews page</strong> linked in the footer for detailed feedback.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Philosophy of Logo Design</h2>
+            <p style="font-size: 1.15rem; line-height: 1.8; color: var(--text-secondary);">Our logo tells the story of what our website is about. The wrench directly reminds us of the word tool and thus, ToolsShare is easy to remember and relate. Moreover, indirectly it represents the kind of tools, gadgets, and everyday things we need. The tilted square gives it a friendly, approachable feel, showing that we're flexible and always moving to meet people's needs. Its simple, clean look reflects our promise: a platform that's easy to use, built on trust.</p>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Stakeholders Impact Table</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Stakeholder</th>
+                            <th>Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Lenders (Tool Owners)</strong></td>
+                            <td>Monetize idle tools, convenient listing and secure transactions via escrow system.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Borrowers (Tool Renters)</strong></td>
+                            <td>Get affordable access to tools, doorstep delivery, and secure transactions via escrow system.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Platform Developers</strong></td>
+                            <td>Develop and design the platform, ensure user experience and functionality, gather feedback for improvement.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Logistics Partners</strong></td>
+                            <td>Manage the tool pickup and delivery process, ensuring efficiency and opening new business opportunities.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Regulatory Bodies</strong></td>
+                            <td>Ensure the platform adheres to legal and regulatory requirements, especially data protection and consumer rights.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">WBD Project Requirements</h2>
+            <div class="requirements-grid">
+                <div class="requirement-category">
+                    <h2>🔒 Security & Configuration Files</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Security.txt</strong>: At site root</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable" selected>Not applicable</option>
+                                <option value="done">Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Robots.txt</strong>: At site root</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable" selected>Not applicable</option>
+                                <option value="done">Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>HTTPS (SSL)</strong>: Serve site securely</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h2>📄 Hidden/Instructors-only Page</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Access Restriction</strong>: Instructor only</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Handwritten HTML</strong>: No auto-generation</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Team Table</strong>: Members & roles listed</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Consumer Profile</strong>: Who are you catering to?</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h2>♿ Accessibility & Performance</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Accessibility</strong>: Screen-readable & accessible</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Performance</strong>: Optimized for fast rendering</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Images</strong>: Optimized image on every page</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h2>🔍 SEO & Marketing</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>SEO Keywords</strong>: Selected with reasoning</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable" selected>Not applicable</option>
+                                <option value="done">Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Sitemap</strong>: HTML or XML created</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable" selected>Not applicable</option>
+                                <option value="done">Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Social Buttons</strong>: Implemented</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h2>📋 Project Setup & Documentation</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Table with team number, member names, roll numbers</strong></span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Stakeholders listed</strong></span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Submission</strong>: Complete & submit before deadline</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable" selected>Not applicable</option>
+                                <option value="done">Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h2>🛠️ Core Technical Requirements</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Stack</strong>: Use HTML, CSS, JavaScript</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Page Count</strong>: 5–6 main pages</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Semantic HTML</strong>: Use &lt;header&gt;, &lt;footer&gt;, &lt;nav&gt;, etc.</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Central CSS</strong>: Single global stylesheet</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable" selected>Not applicable</option>
+                                <option value="done">Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h2>🎨 Design & User Experience</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Consistent Design</strong>: Uniform look & documented method</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Mobile Responsive</strong>: Works on phones & tablets</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Favicon</strong>: Add favicon</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h2>🚀 Hosting & Deployment</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Public Availability</strong>: Site & code publicly accessible</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Public URL</strong>: For robots.txt provided</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable" selected>Not applicable</option>
+                                <option value="done">Done</option>
+                                <option value="to-be-done">To be done</option>
+                                <option value="attached">Attached</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="requirement-category">
+                    <h2>🎯 Special Features</h2>
+                    <div class="task-item">
+                        <span class="task-text"><strong>Google Map</strong>: On "About Us" page</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="task-item">
+                        <span class="task-text"><strong>LinkedIn Profile Link</strong>: Optional</span>
+                        <div class="status-dropdown">
+                            <select>
+                                <option value="not-applicable">Not applicable</option>
+                                <option value="done" selected>Done</option>
+                                <option value="to-be-done">To be done</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Enhanced floating particles with multiple layers
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleTypes = [
+                { class: 'particle-small', count: 30 },
+                { class: 'particle-medium', count: 20 },
+                { class: 'particle-large', count: 15 }
+            ];
+            
+            particleTypes.forEach(type => {
+                for (let i = 0; i < type.count; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = `particle ${type.class}`;
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 20 + 's';
+                    particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+                    particlesContainer.appendChild(particle);
+                }
+            });
+        }
+
+        // Enhanced intersection observer for scroll animations
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Add staggered animation for child elements
+                        const children = entry.target.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
+                        children.forEach((child, index) => {
+                            setTimeout(() => {
+                                child.style.animationDelay = (index * 0.1) + 's';
+                                child.style.animation = child.style.animation.replace('paused', 'running');
+                            }, index * 100);
+                        });
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -100px 0px'
+            });
+
+            document.querySelectorAll('.section').forEach((section) => {
+                observer.observe(section);
+            });
+        }
+
+        // Enhanced team card effects with image switching
+        function initTeamCardEffects() {
+            const teamCards = document.querySelectorAll('.team-card');
+            
+            teamCards.forEach(card => {
+                const nameElement = card.querySelector('h3');
+                const imageContainer = card.querySelector('.image-container');
+                const primaryImg = card.querySelector('.img-primary');
+                const hoverImg = card.querySelector('.img-hover');
+                
+                // Name hover effects for image switching
+                if (nameElement && imageContainer) {
+                    nameElement.addEventListener('mouseenter', () => {
+                        primaryImg.style.opacity = '0';
+                        primaryImg.style.transform = 'scale(0.9) rotate(-5deg)';
+                        hoverImg.style.opacity = '1';
+                        hoverImg.style.transform = 'scale(1) rotate(0deg)';
+                        
+                        // Add glow effect to name
+                        nameElement.style.color = 'var(--accent-orange)';
+                        nameElement.style.textShadow = '0 4px 15px rgba(255, 204, 51, 0.6)';
+                        nameElement.style.transform = 'translateY(-3px) scale(1.05)';
+                    });
+                    
+                    nameElement.addEventListener('mouseleave', () => {
+                        primaryImg.style.opacity = '1';
+                        primaryImg.style.transform = 'scale(1) rotate(0deg)';
+                        hoverImg.style.opacity = '0';
+                        hoverImg.style.transform = 'scale(1.1) rotate(5deg)';
+                        
+                        // Reset name styling
+                        nameElement.style.color = 'var(--primary-orange)';
+                        nameElement.style.textShadow = 'none';
+                        nameElement.style.transform = 'translateY(0) scale(1)';
+                    });
+                }
+                
+                // Card hover effects
+                card.addEventListener('mouseenter', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    
+                    card.style.transform = 'translateY(-16px) scale(1.03) rotateY(5deg) rotateX(2deg)';
+                    card.style.transformStyle = 'preserve-3d';
+                    
+                    // Enhanced image effects on card hover
+                    if (primaryImg.style.opacity !== '0') {
+                        primaryImg.style.transform = 'scale(1.15) rotate(8deg)';
+                    }
+                    if (hoverImg.style.opacity === '1') {
+                        hoverImg.style.transform = 'scale(1.25) rotate(13deg)';
+                    }
+                });
+                
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    card.style.transform = `translateY(-16px) scale(1.03) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1) rotateX(0deg) rotateY(0deg)';
+                    card.style.transformStyle = 'flat';
+                    
+                    // Reset image transforms
+                    primaryImg.style.transform = 'scale(1) rotate(0deg)';
+                    hoverImg.style.transform = 'scale(1.1) rotate(5deg)';
+                });
+            });
+        }
+
+        // Enhanced dropdown effects with better visual feedback
+        function initDropdownEffects() {
+            const selects = document.querySelectorAll('select');
+            
+            selects.forEach(select => {
+                // Create custom styling based on initial value
+                updateSelectStyling(select);
+                
+                select.addEventListener('change', (e) => {
+                    updateSelectStyling(e.target);
+                    
+                    // Add pulse animation on change
+                    e.target.style.animation = 'pulse 0.3s ease-out';
+                    setTimeout(() => {
+                        e.target.style.animation = '';
+                    }, 300);
+                });
+                
+                select.addEventListener('focus', (e) => {
+                    e.target.parentElement.style.transform = 'scale(1.02)';
+                });
+                
+                select.addEventListener('blur', (e) => {
+                    e.target.parentElement.style.transform = 'scale(1)';
+                });
+            });
+        }
+
+        function updateSelectStyling(select) {
+            const value = select.value;
+            
+            // Remove all status classes
+            select.classList.remove('status-done', 'status-pending', 'status-na');
+            
+            switch(value) {
+                case 'done':
+                case 'attached':
+                    select.classList.add('status-done');
+                    select.style.borderColor = '#00ff88';
+                    select.style.boxShadow = '0 4px 20px rgba(0, 255, 136, 0.3)';
+                    select.style.background = 'linear-gradient(145deg, #1a2f1a, #0f1f0f)';
+                    break;
+                case 'to-be-done':
+                    select.classList.add('status-pending');
+                    select.style.borderColor = '#ffaa00';
+                    select.style.boxShadow = '0 4px 20px rgba(255, 170, 0, 0.3)';
+                    select.style.background = 'linear-gradient(145deg, #2f2a1a, #1f1f0f)';
+                    break;
+                case 'not-applicable':
+                    select.classList.add('status-na');
+                    select.style.borderColor = '#666';
+                    select.style.boxShadow = '0 4px 20px rgba(102, 102, 102, 0.2)';
+                    select.style.background = 'linear-gradient(145deg, #1a1a1a, #0f0f0f)';
+                    break;
+                default:
+                    select.style.borderColor = 'var(--primary-orange)';
+                    select.style.boxShadow = '0 4px 20px rgba(255, 153, 0, 0.2)';
+                    select.style.background = 'linear-gradient(145deg, #1a1a1a, #0f0f0f)';
+            }
+        }
+
+        // Advanced smooth scrolling with easing
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                        const startPosition = window.pageYOffset;
+                        const distance = targetPosition - startPosition;
+                        const duration = 1000;
+                        let start = null;
+
+                        function animation(currentTime) {
+                            if (start === null) start = currentTime;
+                            const timeElapsed = currentTime - start;
+                            const run = easeInOutQuart(timeElapsed, startPosition, distance, duration);
+                            window.scrollTo(0, run);
+                            if (timeElapsed < duration) requestAnimationFrame(animation);
+                        }
+
+                        function easeInOutQuart(t, b, c, d) {
+                            t /= d / 2;
+                            if (t < 1) return c / 2 * t * t * t * t + b;
+                            t -= 2;
+                            return -c / 2 * (t * t * t * t - 2) + b;
+                        }
+
+                        requestAnimationFrame(animation);
+                    }
+                });
+            });
+        }
+
+        // Enhanced dynamic background with mouse tracking
+        function initBackgroundEffects() {
+            const background = document.querySelector('.background-animation');
+            let mouseX = 0.5, mouseY = 0.5;
+            let targetX = 0.5, targetY = 0.5;
+            
+            document.addEventListener('mousemove', (e) => {
+                targetX = e.clientX / window.innerWidth;
+                targetY = e.clientY / window.innerHeight;
+            });
+            
+            function updateBackground() {
+                mouseX += (targetX - mouseX) * 0.1;
+                mouseY += (targetY - mouseY) * 0.1;
+                
+                const x1 = 20 + mouseX * 60;
+                const y1 = 80 - mouseY * 60;
+                const x2 = 80 - mouseX * 60;
+                const y2 = 20 + mouseY * 60;
+                const x3 = 40 + mouseX * 20;
+                const y3 = 40 + mouseY * 20;
+                
+                background.style.background = `
+                    radial-gradient(circle at ${x1}% ${y1}%, rgba(255, 153, 0, 0.12) 0%, transparent 40%),
+                    radial-gradient(circle at ${x2}% ${y2}%, rgba(255, 102, 0, 0.08) 0%, transparent 40%),
+                    radial-gradient(circle at ${x3}% ${y3}%, rgba(255, 204, 51, 0.06) 0%, transparent 40%),
+                    linear-gradient(135deg, rgba(255, 153, 0, 0.03) 0%, rgba(0, 0, 0, 0.8) 100%)
+                `;
+                
+                requestAnimationFrame(updateBackground);
+            }
+            
+            updateBackground();
+        }
+
+        // Enhanced typing animation with cursor effect
+        function initTypingAnimation() {
+            const title = document.querySelector('.main-title');
+            const text = title.textContent;
+            title.textContent = '';
+            title.style.position = 'relative';
+            
+            // Create cursor element
+            const cursor = document.createElement('span');
+            cursor.textContent = '|';
+            cursor.style.animation = 'blink 1s infinite';
+            cursor.style.color = 'var(--primary-orange)';
+            
+            // Add cursor blink animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes blink {
+                    0%, 50% { opacity: 1; }
+                    51%, 100% { opacity: 0; }
+                }
+                @keyframes pulse {
+                    0% { transform: scale(1); }
+                    50% { transform: scale(1.05); }
+                    100% { transform: scale(1); }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < text.length) {
+                    title.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 80 + Math.random() * 40);
+                } else {
+                    // Remove cursor after typing is complete
+                    setTimeout(() => {
+                        cursor.remove();
+                    }, 2000);
+                }
+            };
+            
+            title.appendChild(cursor);
+            setTimeout(typeWriter, 1000);
+        }
+
+        // Performance monitoring with detailed metrics
+        function initPerformanceMonitoring() {
+            window.addEventListener('load', () => {
+                const loadTime = performance.now();
+                const navigation = performance.getEntriesByType('navigation')[0];
+                
+                console.log(`🚀 Enhanced Faculty Page Performance Metrics:`);
+                console.log(`   Total Load Time: ${loadTime.toFixed(2)}ms`);
+                console.log(`   DOM Content Loaded: ${navigation.domContentLoadedEventEnd.toFixed(2)}ms`);
+                console.log(`   First Paint: ${navigation.loadEventEnd.toFixed(2)}ms`);
+                
+                // Add performance indicator
+                if (loadTime < 2000) {
+                    console.log(`   ✅ Excellent performance!`);
+                } else if (loadTime < 5000) {
+                    console.log(`   ⚠️ Good performance`);
+                } else {
+                    console.log(`   ❌ Consider optimization`);
+                }
+            });
+        }
+
+        // Accessibility enhancements
+        function initAccessibilityFeatures() {
+            // Add keyboard navigation for custom elements
+            document.querySelectorAll('.team-card, .task-item').forEach(element => {
+                element.setAttribute('tabindex', '0');
+                
+                element.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        element.click();
+                    }
+                });
+            });
+            
+            // Add ARIA labels where needed
+            document.querySelectorAll('select').forEach(select => {
+                if (!select.getAttribute('aria-label')) {
+                    const taskText = select.closest('.task-item')?.querySelector('.task-text')?.textContent;
+                    if (taskText) {
+                        select.setAttribute('aria-label', `Status for: ${taskText}`);
+                    }
+                }
+            });
+            
+            // Add focus indicators for better navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    document.body.classList.add('keyboard-navigation');
+                }
+            });
+            
+            document.addEventListener('mousedown', () => {
+                document.body.classList.remove('keyboard-navigation');
+            });
+        }
+
+        // Error handling and fallbacks
+        function initErrorHandling() {
+            window.addEventListener('error', (e) => {
+                console.warn('⚠️ Non-critical error handled:', e.error?.message || e.message);
+            });
+            
+            // Fallback for animations if reduced motion is preferred
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.documentElement.style.setProperty('--animation-duration', '0.01s');
+                console.log('🎯 Reduced motion preferences detected, animations minimized');
+            }
+        }
+
+        // Initialize all enhancements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Core functionality
+            createParticles();
+            initScrollAnimations();
+            initTeamCardEffects();
+            initDropdownEffects();
+            initSmoothScrolling();
+            
+            // Enhanced features
+            initBackgroundEffects();
+            initTypingAnimation();
+            initPerformanceMonitoring();
+            initAccessibilityFeatures();
+            initErrorHandling();
+            
+            // Add loading complete indicator
+            document.body.classList.add('loaded');
+            console.log('🎉 Enhanced Faculty Page fully loaded and initialized');
+        });
+
+        // Cleanup and optimization
+        window.addEventListener('beforeunload', () => {
+            // Cancel any ongoing animations
+            document.querySelectorAll('*').forEach(el => {
+                el.style.animation = 'none';
+            });
+        });
+    </script>
+    <script>
+        function checkCode() {
+            const input = document.getElementById("access-input").value;
+            if (input === "enter") {
+                document.getElementById("lock-screen").style.display = "none";
+            } else {
+                document.getElementById("error").style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
+                    
